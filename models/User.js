@@ -20,5 +20,6 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  //   we can put an empty array to house the user's todos. This would be empty upon initial access to the application.
 });
 module.exports = User = mongoose.model("users", UserSchema);

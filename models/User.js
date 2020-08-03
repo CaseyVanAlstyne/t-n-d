@@ -22,6 +22,10 @@ const userSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  // tasks: {
+  //   quests: [],
+  //   dailies: [],
+  // }
   //   we can put an empty array to house the user's todos. This would be empty upon initial access to the application.
 });
 

@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 require('dotenv').config()
 const app = express();
-
-const userRoutes = require('./routes/api/users');
+const passport = require("passport");
+const users = require("./routes/api/users");
 // Bodyparser middleware
 app.use(
   bodyParser.urlencoded({
@@ -12,7 +12,7 @@ app.use(
   })
 );
 app.use(bodyParser.json());
-app.use("/api", userRoutes);
+app.use("/api", users);
 // DB Config
 // const db = require("./config/keys").mongoURI;
 // Connect to MongoDB
@@ -26,6 +26,12 @@ mongoose
   .then(() => console.log("MongoDB successfully connected"))
   .catch((err) => console.log(err));
 
-const port = process.env.PORT || 3001; // process.env.port is Heroku's port if you choose to deploy the app there
+// Passport middleware
+app.use(passport.initialize());
+// Passport config
+require("./config/passport")(passport);
+// Routes
+app.use("/api/users", users);
 
+const port = process.env.PORT || 5000; // process.env.port is Heroku's port if you choose to deploy the app there
 app.listen(port, () => console.log(`Server up and running on port ${port} !`));

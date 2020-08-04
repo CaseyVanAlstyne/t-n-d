@@ -6,16 +6,18 @@ class Landing extends Component {
       <div style={{ height: "75vh" }} className="container valign-wrapper">
         <div className="row">
           <div className="col s12 center-align">
-            <h1>
-              <b>T&D</b>
-            </h1>
-            <h3>
-              <b>Gamify</b> Your Habits
-            </h3>
-            <p className="flow-text grey-text text-darken-1">
-              Create your Todos with a Purpose!
-            </p>
-            <br />
+            <div class="card-panel horizontal grey lighten-5">
+              <h1>
+                <b>T&D</b>
+              </h1>
+              <h3>
+                <b>Gamify</b> Your Habits
+              </h3>
+              <p className="flow-text grey-text text-darken-1">
+                Create your Todos with a Purpose!
+              </p>
+              <br />
+            </div>
             <div className="col s6">
               <Link
                 to="/register"

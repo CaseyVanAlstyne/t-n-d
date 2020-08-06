@@ -21,8 +21,8 @@ const uri = process.env.ATLAS_URI;
 console.log(uri);
 mongoose
   .connect(uri
-    //|| db, 
-    ,{ useNewUrlParser: true, useUnifiedTopology: true },)
+    || "mongodb://localhost/todo", 
+    { useNewUrlParser: true, useUnifiedTopology: true },)
   .then(() => console.log("MongoDB successfully connected"))
   .catch((err) => console.log(err));
 

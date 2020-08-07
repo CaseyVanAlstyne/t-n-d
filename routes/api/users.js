@@ -70,9 +70,9 @@ router.post("/login", (req, res) => {
           id: user.id,
           name: user.name,
           experience: user.experience,
-          health: user.health,
+          totalHealth: user.totalHealth,
+          currentHealth: user.currentHealth,
           tasks: user.tasks,
-          level: user.level,
         };
         // Sign token
         jwt.sign(

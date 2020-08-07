@@ -22,7 +22,12 @@ const userSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  health: {
+  totalHealth: {
+    type: Number,
+    required: true,
+    default: 100,
+  },
+  currentHealth: {
     type: Number,
     required: true,
     default: 100,
@@ -35,11 +40,6 @@ const userSchema = new Schema({
   tasks: {
     quests: [],
     dailies: [],
-  },
-  level: {
-    type: Number,
-    required: true,
-    default: 1,
   },
   //   we can put an empty array to house the user's todos. This would be empty upon initial access to the application.
 });

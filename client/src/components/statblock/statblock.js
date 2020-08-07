@@ -14,12 +14,12 @@ export default function statblock(props) {
           <div className="row"></div>
             <p>{props.currentHealth}/{props.totalHealth}</p>
             <div className="progress">
-              <div className="determinate" style={{width: "100%"}}></div>
+              <div className="determinate blue" style={{width: "100%"}}></div>
             </div>
           <div className="row"></div>
             <p>Exp:{props.experience}</p>
             <div className="progress">
-              <div className="determinate" style={{width: "0%"}}></div>
+              <div className="determinate purple" style={{width: "0%"}}></div>
             </div>
           <div className="row"><p>LvL: logic not created yet</p></div>
         </div>

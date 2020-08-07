@@ -30,12 +30,30 @@ const Dailies = () => {
   }
 
     return (
-      <div className="dailiesList">
-        <div className="dailiesListHeader">
-          <h1>
-            <b>Dailies</b>
-          </h1>
+      <section className="container">
+        <div className="row">
+          <div className="col s12 m6">
+            <div className="dailiesList">
+              <div className="dailiesListHeader">
+                <h1>
+                  <b>Dailies</b>
+                </h1>
+              </div>
+              <div className="DailyItems">
+                ul (list of daily items) li (each item contains
+                checkbox/complete dailyName, points/experience, complete/delete
+                button)
+                <button type="submit">Complete</button>
+                <button type="submit">Delete</button>
+              </div>
+              <form className="dailyForm">
+                <input placeholder="enter daily"></input>
+                <button type="submit">Add Daily</button>
+              </form>
+            </div>
+          </div>
         </div>
+
         <div className="DailyItems">
           <ListItems todos={todos} />
             <button type="submit">Complete</button>
@@ -46,6 +64,7 @@ const Dailies = () => {
           <button type="submit">Add Daily</button>
         </form>
       </div>
+      </section>
     );
 
 }

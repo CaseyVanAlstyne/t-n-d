@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
-import Quests from "../quests/Quests"
-import Dailies from "../dailies/Dailies"
-import Statblock from "../statblock/statblock.js"
+import Quests from "../quests/Quests";
+import Dailies from "../dailies/Dailies";
+import Statblock from "../statblock/statblock.js";
 
 class Dashboard extends Component {
   onLogoutClick = (e) => {
@@ -16,15 +16,14 @@ class Dashboard extends Component {
     console.log(user);
     return (
       <>
-        <Statblock currentHealth={user.currentHealth} totalHealth={user.totalHealth} name={user.name} experience={user.experience} />
-
-        <Quests>
-
-        </Quests>
-
-        <Dailies>
-
-        </Dailies>
+        <Statblock
+          currentHealth={user.currentHealth}
+          totalHealth={user.totalHealth}
+          name={user.name}
+          experience={user.experience}
+        />
+        <Quests></Quests>
+        <Dailies></Dailies>
 
         <button
           style={{
@@ -37,8 +36,7 @@ class Dashboard extends Component {
           className="btn btn-large waves-effect waves-light hoverable blue accent-3"
         >
           Logout
-            </button>
-
+        </button>
       </>
     );
   }

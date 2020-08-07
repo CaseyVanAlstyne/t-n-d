@@ -63,7 +63,6 @@ const Dailies = () => {
           <input placeholder="enter daily" onChange={handleChange}></input>
           <button type="submit">Add Daily</button>
         </form>
-      </div>
       </section>
     );
 

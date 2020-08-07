@@ -70,7 +70,8 @@ router.post("/login", (req, res) => {
           id: user.id,
           name: user.name,
           experience: user.experience,
-          health: user.health,
+          totalHealth: user.totalHealth,
+          currentHealth: user.currentHealth,
           tasks: user.tasks,
         };
         // Sign token

@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import Quests from "../quests/Quests"
 import Dailies from "../dailies/Dailies"
+import Statblock from "../statblock/statblock.js"
 
 class Dashboard extends Component {
   onLogoutClick = (e) => {
@@ -12,42 +13,33 @@ class Dashboard extends Component {
   };
   render() {
     const { user } = this.props.auth;
-    console.log(this.props);
+    console.log(user);
     return (
-      <div style={{ height: "75vh" }} className="container valign-wrapper">
-        <div className="row">
-          <div className="col s12 center-align">
-            <h4>
-              <b>Hey there,</b> {user.name.split(" ")[0]}
-              <p className="flow-text grey-text text-darken-1">
-                You are logged into a full-stack{" "}
-                <span style={{ fontFamily: "monospace" }}>MERN</span> app 👏
-              </p>
-            </h4>
+      <>
+        <Statblock currentHealth={user.currentHealth} totalHealth={user.totalHealth} name={user.name} experience={user.experience} />
 
-          <Quests>
+        <Quests>
 
-          </Quests>
+        </Quests>
 
-          <Dailies>
+        <Dailies>
 
-          </Dailies>
+        </Dailies>
 
-            <button
-              style={{
-                width: "150px",
-                borderRadius: "3px",
-                letterSpacing: "1.5px",
-                marginTop: "1rem",
-              }}
-              onClick={this.onLogoutClick}
-              className="btn btn-large waves-effect waves-light hoverable blue accent-3"
-            >
-              Logout
+        <button
+          style={{
+            width: "150px",
+            borderRadius: "3px",
+            letterSpacing: "1.5px",
+            marginTop: "1rem",
+          }}
+          onClick={this.onLogoutClick}
+          className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+        >
+          Logout
             </button>
-          </div>
-        </div>
-      </div>
+
+      </>
     );
   }
 }

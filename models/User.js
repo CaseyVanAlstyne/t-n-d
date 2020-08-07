@@ -22,7 +22,12 @@ const userSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  health: {
+  totalHealth: {
+    type: Number,
+    required: true,
+    default: 100,
+  },
+  currentHealth: {
     type: Number,
     required: true,
     default: 100,

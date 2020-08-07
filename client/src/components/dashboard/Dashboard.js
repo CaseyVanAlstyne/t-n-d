@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
+import Quests from "../quests/Quests"
+import Dailies from "../dailies/Dailies"
+
 class Dashboard extends Component {
   onLogoutClick = (e) => {
     e.preventDefault();
@@ -21,6 +24,15 @@ class Dashboard extends Component {
                 <span style={{ fontFamily: "monospace" }}>MERN</span> app 👏
               </p>
             </h4>
+
+          <Quests>
+
+          </Quests>
+
+          <Dailies>
+
+          </Dailies>
+
             <button
               style={{
                 width: "150px",

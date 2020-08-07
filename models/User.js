@@ -36,6 +36,11 @@ const userSchema = new Schema({
     quests: [],
     dailies: [],
   },
+  level: {
+    type: Number,
+    required: true,
+    default: 1,
+  },
   //   we can put an empty array to house the user's todos. This would be empty upon initial access to the application.
 });
 

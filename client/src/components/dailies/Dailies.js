@@ -1,12 +1,34 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from 'axios';
 
 import ListItems from './ListItems';
 
-class Dailies extends Component {
+const Dailies = () => {
+  const [text, setText] = useState({});
+  const [todos, setTodos] = useState([]);
 
-  
-  render() {
+  useEffect(() => {
+    // axios.get('http://localhost:4000/todos/')
+    //         .then(response => {
+    //             setTodos({ todos: response.data });
+    //         })
+    //         .catch(function (error){
+    //             console.log(error);
+    //         })
+  }, [])
+
+  const handleChange = event => {
+    setText(event.target.value);
+  };
+
+  const handleSubmit = event => {
+    event.preventDefault();
+
+    // axios.post('http://localhost:4000/todos/add', newTodo)
+    //         .then(res => console.log(res.data));
+  }
+
     return (
       <div className="dailiesList">
         <div className="dailiesListHeader">
@@ -15,17 +37,16 @@ class Dailies extends Component {
           </h1>
         </div>
         <div className="DailyItems">
-          ul (list of daily items)
-            li (each item contains checkbox/complete dailyName, points/experience, complete/delete button)
+          <ListItems todos={todos} />
             <button type="submit">Complete</button>
             <button type="submit">Delete</button>
         </div>
-        <form className="dailyForm">
-          <input placeholder="enter daily"></input>
+        <form onSubmit={handleSubmit} className="dailyForm">
+          <input placeholder="enter daily" onChange={handleChange}></input>
           <button type="submit">Add Daily</button>
         </form>
       </div>
     );
-  }
+
 }
 export default Dailies;

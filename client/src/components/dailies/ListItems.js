@@ -2,14 +2,14 @@ import React from 'react';
 import ListItem from './ListItem';
 
 
-const ListItems = ({tasks}) => {
-    const todos = tasks.map((task) => {
-        return <ListItem key={task.id} task={task} />
+const ListItems = ({todos}) => {
+    const tasks = todos.map((todo) => {
+        return <ListItem key={todo.id} todo={todo} />
     })
 
     return (
         <div>
-            {todos}
+            {tasks}
         </div>
     ) 
 }

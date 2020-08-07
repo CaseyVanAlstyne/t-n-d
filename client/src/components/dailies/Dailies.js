@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+
+import ListItems from './ListItems';
+
 class Dailies extends Component {
+
+  
   render() {
     return (
       <div className="dailiesList">

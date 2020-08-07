@@ -71,6 +71,7 @@ router.post("/login", (req, res) => {
           name: user.name,
           experience: user.experience,
           health: user.health,
+          tasks: user.tasks,
         };
         // Sign token
         jwt.sign(

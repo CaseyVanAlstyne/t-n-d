@@ -3,8 +3,9 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import Quests from "../quests/Quests";
-import Dailies from "../dailies/Dailies";
+// import Dailies from "../dailies/Dailies";
 import Statblock from "../statblock/statblock.js";
+import API from "../../utils/API.js"
 
 class Dashboard extends Component {
   state = {
@@ -25,6 +26,7 @@ class Dashboard extends Component {
 
   render() {
     const { user } = this.props.auth;
+    console.log(this.state)
     console.log(user);
     return (
       <>
@@ -35,8 +37,10 @@ class Dashboard extends Component {
           name={this.state.name}
           experience={this.state.experience}
         />
-        <Quests></Quests>
-        <Dailies></Dailies>
+        <Quests
+          quests={this.state.quests}
+        />
+        {/* <Dailies></Dailies> */}
 
         <button
           style={{

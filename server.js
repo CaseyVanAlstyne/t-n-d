@@ -5,6 +5,7 @@ require('dotenv').config()
 const app = express();
 const passport = require("passport");
 const users = require("./routes/api/users");
+const todo = require("./routes/api/todo");
 // Bodyparser middleware
 app.use(
   bodyParser.urlencoded({
@@ -32,6 +33,7 @@ app.use(passport.initialize());
 require("./config/passport")(passport);
 // Routes
 app.use("/api", users);
+app.use("/api", todo);
 // app.use("/api/users", users);
 
 const port = process.env.PORT || 5000; // process.env.port is Heroku's port if you choose to deploy the app there

@@ -14,10 +14,27 @@ class Dashboard extends Component {
     totalHealth: this.props.auth.user.totalHealth,
     name: this.props.auth.user.name,
     experience: this.props.auth.user.experience,
-    quests: this.props.auth.user.tasks.quests,
-    dailies: this.props.auth.user.tasks.dailies,
+    quests: this.props.auth.user.quests,
+    dailies: this.props.auth.user.dailies,
+    todoName: ""
   };
 
+  handleInputChange = event => {
+    const value = event.target.value;
+    this.setState({todoName: value});
+  };
+
+  submitTodo= (e) => {
+    e.preventDefault()
+    let newQuestList = this.state.quests
+    newQuestList.push({
+      name: this.state.todoName,
+      experience: 20,
+      date: Date.now,
+    })
+    this.setState({quests: newQuestList})
+    API.addTodo(this.state.id, this.state.todoName)
+  };
 
   onLogoutClick = (e) => {
     e.preventDefault();
@@ -39,6 +56,8 @@ class Dashboard extends Component {
         />
         <Quests
           quests={this.state.quests}
+          handleInputChange={this.handleInputChange}
+          submitTodo={this.submitTodo}
         />
         {/* <Dailies></Dailies> */}
 

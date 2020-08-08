@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-const ListItem = ({todo}) => {
+const ListItem = (todo) => {
 
 
     return (
@@ -9,6 +9,8 @@ const ListItem = ({todo}) => {
             {todo.name}
             {todo.experience}
             {todo.date}
+            <button type="submit">Complete</button>
+            <button type="submit">Delete</button>
         </div>
     ) 
 }

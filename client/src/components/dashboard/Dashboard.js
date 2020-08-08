@@ -7,20 +7,33 @@ import Dailies from "../dailies/Dailies";
 import Statblock from "../statblock/statblock.js";
 
 class Dashboard extends Component {
+  state = {
+    id: this.props.auth.user.id,
+    currentHealth: this.props.auth.user.currentHealth,
+    totalHealth: this.props.auth.user.totalHealth,
+    name: this.props.auth.user.name,
+    experience: this.props.auth.user.experience,
+    quests: this.props.auth.user.tasks.quests,
+    dailies: this.props.auth.user.tasks.dailies,
+  };
+
+
   onLogoutClick = (e) => {
     e.preventDefault();
     this.props.logoutUser();
   };
+
   render() {
     const { user } = this.props.auth;
     console.log(user);
     return (
       <>
         <Statblock
-          currentHealth={user.currentHealth}
-          totalHealth={user.totalHealth}
-          name={user.name}
-          experience={user.experience}
+          userid={this.state.id}
+          currentHealth={this.state.currentHealth}
+          totalHealth={this.state.totalHealth}
+          name={this.state.name}
+          experience={this.state.experience}
         />
         <Quests></Quests>
         <Dailies></Dailies>

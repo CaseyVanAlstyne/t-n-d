@@ -5,15 +5,14 @@ const router = express.Router();
 const User = require("../../models/User");
 
 router.post("/addquest/:id/", (req, res) => {
-  console.log(req.body);
+  console.log("hye there world", req.body);
   let todo = {
     name: req.params.name,
     experience: 20,
   };
-  User.findOneAndUpdate(
-    { id: req.params.id },
-    { $push: { quests: req.body.quests } }
-  );
+  User.findByIdAndUpdate(req.params.id, {
+    $push: { quests: req.body.quest },
+  }).then(console.log);
 });
 
 // router.post('/add', (req, res) => {

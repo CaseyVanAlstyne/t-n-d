@@ -37,13 +37,12 @@ const userSchema = new Schema({
     required: true,
     default: 0,
   },
-  quests: [{
-        name: {type: String, required: true,},
-        experience: { type: Number, required: true, default: 20,},
-        date: {type: Date, default: Date.now,}
-      }],
-  dailies: [],
-  //   we can put an empty array to house the user's todos. This would be empty upon initial access to the application.
+  quests: {
+    name: { type: String, required: true },
+    experience: { type: Number, required: true, default: 20 },
+    date: { type: Date, default: Date.now },
+  },
+  dailies: {},
 });
 
 const User = mongoose.model("User", userSchema);

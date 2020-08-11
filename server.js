@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-require('dotenv').config()
+require("dotenv").config();
 const app = express();
 const passport = require("passport");
 const users = require("./routes/api/users");
@@ -18,12 +18,13 @@ app.use(bodyParser.json());
 // const db = require("./config/keys").mongoURI;
 // Connect to MongoDB
 const uri = process.env.ATLAS_URI;
-
-console.log(uri);
+// const uri = null;
+// console.log(uri);
 mongoose
-  .connect(uri
-    || "mongodb://localhost/todo", 
-    { useNewUrlParser: true, useUnifiedTopology: true },)
+  .connect(uri || "mongodb://localhost/todo", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => console.log("MongoDB successfully connected"))
   .catch((err) => console.log(err));
 

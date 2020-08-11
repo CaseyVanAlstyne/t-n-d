@@ -5,7 +5,7 @@ import { logoutUser } from "../../actions/authActions";
 import Quests from "../quests/Quests";
 // import Dailies from "../dailies/Dailies";
 import Statblock from "../statblock/statblock.js";
-import API from "../../utils/API.js"
+import API from "../../utils/API.js";
 
 class Dashboard extends Component {
   state = {
@@ -16,24 +16,28 @@ class Dashboard extends Component {
     experience: this.props.auth.user.experience,
     quests: this.props.auth.user.quests,
     dailies: this.props.auth.user.dailies,
-    todoName: ""
+    todoName: "",
   };
 
-  handleInputChange = event => {
+  handleInputChange = (event) => {
     const value = event.target.value;
-    this.setState({todoName: value});
+    this.setState({ todoName: value });
   };
 
-  submitTodo= (e) => {
-    e.preventDefault()
-    let newQuestList = this.state.quests
-    newQuestList.push({
+  submitTodo = (e) => {
+    e.preventDefault();
+    // let newQuestList = this.state.quests;
+    const questListData = {
       name: this.state.todoName,
       experience: 20,
       date: Date.now,
-    })
-    this.setState({quests: newQuestList})
-    API.addTodo(this.state.id, this.state.todoName)
+    };
+    this.setState({
+      // quests: [...this.state.quests, questListData],
+      quests: [questListData],
+      // need to add a conditional here
+    });
+    API.addTodo(this.state.id, this.state.quests);
   };
 
   onLogoutClick = (e) => {
@@ -43,7 +47,7 @@ class Dashboard extends Component {
 
   render() {
     const { user } = this.props.auth;
-    console.log(this.state)
+    console.log(this.state);
     console.log(user);
     return (
       <>

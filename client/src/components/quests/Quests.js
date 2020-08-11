@@ -3,8 +3,7 @@ import React, { useState } from "react";
 // import ListItem from "../dailies/ListItem"
 
 export default function Quests(props) {
-
-  console.log(props)
+  console.log(props);
   return (
     <section className="container">
       <div className="row">
@@ -16,25 +15,35 @@ export default function Quests(props) {
               </h1>
             </div>
             <div className="questItems">
-              <ul>
-                {props.quests.map(todo => (
-                  <li key={todo.name}>
-                    {todo.name}
-                    {todo.experience}
-                    {todo.date}
-                    <button type="submit">Complete</button>
-                    <button type="submit">Delete</button>
-                  </li>
-                ))}
-              </ul>
-              </div>
+              {props.quests ? (
+                <ul>
+                  {props.quests.map((todo) => (
+                    <li key={todo.name}>
+                      {todo.name}
+                      {todo.experience}
+                      {/* {todo.date} */}
+                      {/* LOOK AT ME! maybe add moment.js here instead of using "Date" */}
+                      <button type="submit">Complete</button>
+                      <button type="submit">Delete</button>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <h4>"Start your first quest, DUMMY!"</h4>
+              )}
+            </div>
             <form className="questForm">
-              <input placeholder="enter quest" onChange={props.handleInputChange}></input>
-              <button type="submit" onClick={props.submitTodo}>Add Quest</button>
+              <input
+                placeholder="enter quest"
+                onChange={props.handleInputChange}
+              ></input>
+              <button type="submit" onClick={props.submitTodo}>
+                Add Quest
+              </button>
             </form>
           </div>
         </div>
       </div>
     </section>
-  )
+  );
 }

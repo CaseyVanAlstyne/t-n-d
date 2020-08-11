@@ -4,17 +4,17 @@ const router = express.Router();
 // const Todo = require("../../models/Todo");
 const User = require("../../models/User");
 
-router.post('/addquest/:id/', (req, res) => {
+router.post("/addquest/:id/", (req, res) => {
+  console.log(req.body);
   let todo = {
     name: req.params.name,
     experience: 20,
-  }
+  };
   User.findOneAndUpdate(
-    {id: req.params.id},
-    {$push: {"quests": todo}}
-  )
+    { id: req.params.id },
+    { $push: { quests: req.body.quests } }
+  );
 });
-
 
 // router.post('/add', (req, res) => {
 //     let todo = new Todo(req.body);
@@ -44,7 +44,6 @@ router.post('/addquest/:id/', (req, res) => {
 //     });
 // });
 
-
 // router.delete("/:id", (req, res) => {
 //     const id = req.params.id;
 //     Todo.findByIdAndRemove(id, err => {
@@ -52,7 +51,5 @@ router.post('/addquest/:id/', (req, res) => {
 //     res.redirect("/");
 //     });
 //     });
-
-
 
 module.exports = router;

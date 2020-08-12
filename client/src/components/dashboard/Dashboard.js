@@ -32,12 +32,15 @@ class Dashboard extends Component {
       experience: 20,
       date: Date.now,
     };
-    this.setState({
-      // quests: [...this.state.quests, questListData],
-      quests: [questListData],
-      // need to add a conditional here
-    });
-    API.addTodo(this.state.id, this.state.quests);
+    this.setState(
+      {
+        quests: [...this.state.quests, questListData],
+        // quests: [questListData],
+      },
+      () => {
+        API.addTodo(this.state.id, questListData);
+      }
+    );
   };
 
   onLogoutClick = (e) => {
@@ -63,7 +66,11 @@ class Dashboard extends Component {
           handleInputChange={this.handleInputChange}
           submitTodo={this.submitTodo}
         />
-        {/* <Dailies></Dailies> */}
+        {/* <Dailies
+          dailies={this.state.dailies}
+          handleInputChange={this.handleInputChange}
+          submitTodo={this.submitTodo}
+        /> */}
 
         <button
           style={{

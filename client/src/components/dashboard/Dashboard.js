@@ -43,6 +43,12 @@ class Dashboard extends Component {
     );
   };
 
+  deleteTodo(id) {
+    API.deleteTodo(id)
+    .then(res => API.showTodo())
+    .catch(err => console.log(err));
+  }
+
   onLogoutClick = (e) => {
     e.preventDefault();
     this.props.logoutUser();
@@ -65,6 +71,7 @@ class Dashboard extends Component {
           quests={this.state.quests}
           handleInputChange={this.handleInputChange}
           submitTodo={this.submitTodo}
+          onClick={() => this.deleteTodo}
         />
         {/* <Dailies
           dailies={this.state.dailies}

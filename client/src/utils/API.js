@@ -9,4 +9,10 @@ export default {
       quest: questListData,
     });
   },
+  getTodo: function () {
+    return axios.get("/api/")
+  },
+  deleteTodo: function (id) {
+    return axios.delete(`/api/${id}`)
+  }
 };

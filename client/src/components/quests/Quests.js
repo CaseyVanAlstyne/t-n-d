@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 // import { Link } from "react-router-dom";
 // import ListItem from "../dailies/ListItem"
 
 export default function Quests(props) {
+
   console.log(props);
   return (
     <section className="container">
@@ -24,7 +25,7 @@ export default function Quests(props) {
                       {/* {todo.date} */}
                       {/* LOOK AT ME! maybe add moment.js here instead of using "Date" */}
                       <button type="submit">Complete</button>
-                      <button type="submit">Delete</button>
+                      <button onClick={props.onClick} type="submit">Delete</button>
                     </li>
                   ))}
                 </ul>

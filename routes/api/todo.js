@@ -19,26 +19,23 @@ router.post("/addquest/:id/", (req, res) => {
   );
 });
 
-// router.post('/add', (req, res) => {
-//     let todo = new Todo(req.body);
-//     todo.save()
-//         .then(todo => {
-//             res.status(200).json({'todo': 'todo added successfully'});
-//         })
-//         .catch(err => {
-//             res.status(400).send('adding new todo failed');
-//         });
-// });
+router.get("/", (req, res) => {
+    User.find({}, (err, result) => {
+        if (err) {
+            res.status(422).json(err);
+        } else {
+            res.json(result);
+        }
+    })
+});
 
-// router.get('/', (req, res) => {
-//     Todo.find((err, todo) => {
-//         if (err) {
-//             console.log(err);
-//         } else {
-//             res.json(todo);
-//         }
-//     });
-// });
+router.delete("/:id", (req, res) => {
+    const id = req.params.id;
+    User.findByIdAndRemove(id, err => {
+    if (err) return res.send(500, err);
+    res.redirect("/");
+    });
+    });
 
 // router.get('/:id', (req, res) => {
 //     let id = req.params.id;
@@ -47,12 +44,6 @@ router.post("/addquest/:id/", (req, res) => {
 //     });
 // });
 
-// router.delete("/:id", (req, res) => {
-//     const id = req.params.id;
-//     Todo.findByIdAndRemove(id, err => {
-//     if (err) return res.send(500, err);
-//     res.redirect("/");
-//     });
-//     });
+
 
 module.exports = router;

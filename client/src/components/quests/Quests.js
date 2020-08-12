@@ -25,7 +25,7 @@ export default function Quests(props) {
                       {/* {todo.date} */}
                       {/* LOOK AT ME! maybe add moment.js here instead of using "Date" */}
                       <button type="submit">Complete</button>
-                      <button onClick={props.onClick} type="submit">Delete</button>
+                      <button onClick={() => props.onClick(todo._id)} type="submit">Delete</button>
                     </li>
                   ))}
                 </ul>

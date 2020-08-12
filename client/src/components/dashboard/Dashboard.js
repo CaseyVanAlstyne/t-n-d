@@ -44,9 +44,10 @@ class Dashboard extends Component {
   };
 
   deleteTodo(id) {
+    console.log("click triggered", id)
     API.deleteTodo(id)
-    .then(res => API.showTodo())
-    .catch(err => console.log(err));
+    // .then(res => API.showTodo())
+    // .catch(err => console.log(err));
   }
 
   onLogoutClick = (e) => {
@@ -71,7 +72,7 @@ class Dashboard extends Component {
           quests={this.state.quests}
           handleInputChange={this.handleInputChange}
           submitTodo={this.submitTodo}
-          onClick={() => this.deleteTodo}
+          onClick={this.deleteTodo}
         />
         {/* <Dailies
           dailies={this.state.dailies}

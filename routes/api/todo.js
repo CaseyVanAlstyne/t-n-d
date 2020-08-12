@@ -33,7 +33,7 @@ router.delete("/:id", (req, res) => {
     const id = req.params.id;
     User.findByIdAndRemove(id, err => {
     if (err) return res.send(500, err);
-    res.redirect("/");
+    res.send(id)
     });
     });
 

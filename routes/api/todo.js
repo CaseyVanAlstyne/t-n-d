@@ -19,6 +19,10 @@ router.post("/addquest/:id/", (req, res) => {
   );
 });
 
+router.get("/adduser/:id", (req, res) => {
+  return
+})
+
 // router.post('/add', (req, res) => {
 //     let todo = new Todo(req.body);
 //     todo.save()

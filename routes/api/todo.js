@@ -19,17 +19,6 @@ router.post("/addquest/:id/", (req, res) => {
   );
 });
 
-<<<<<<< HEAD
-router.get("/", (req, res) => {
-    User.find({}, (err, result) => {
-        if (err) {
-            res.status(422).json(err);
-        } else {
-            res.json(result);
-        }
-    })
-});
-=======
 router.get("/getuser/:id", (req, res) => {
   User.findById( req.params.id,
     (error, data) => {
@@ -61,7 +50,6 @@ router.get("/getuser/:id", (req, res) => {
 //         }
 //     });
 // });
->>>>>>> a02ac1ba32afe457e82d95f7020ec18dbd4ffac0
 
 
 router.delete('/:id', (req, res) => {

@@ -29,20 +29,36 @@ router.get("/", (req, res) => {
     })
 });
 
-router.delete("/:id", (req, res) => {
-    const id = req.params.id;
-    User.findByIdAndRemove(id, err => {
-    if (err) return res.send(500, err);
-    res.send(id)
-    });
-    });
 
-// router.get('/:id', (req, res) => {
-//     let id = req.params.id;
-//     Todo.findById(id, (err, todo) => {
-//         res.json(todo);
+router.delete('/:id', (req, res) => {
+  User.findByIdAndDelete(req.params.id)
+    .then(data => res.json(data))
+    .catch(err => res.status(400).json("failed to delete todo"))
+})
+
+// router.delete("/:_id", async (req, res) => {
+//   try {
+//     await User.findByIdAndRemove(req.params.id)
+//     return res.status(200).send("todo deleted!")
+//   } catch (err) {
+//     res.status(400).json("failed to delete todo");
+//   }
+// })
+
+
+// router.delete('/:id', (req, res, next) => {
+//   User.findOneAndDelete({"_id": req.params.id})
+//     .then(data => res.json(data))
+//     .catch(next)
+// })
+
+// router.delete("/:id", (req, res) => {
+//     const id = req.params.id;
+//     User.findByIdAndRemove(id, err => {
+//     if (err) return res.send(500, err);
+//     res.send(id)
 //     });
-// });
+//     });
 
 
 

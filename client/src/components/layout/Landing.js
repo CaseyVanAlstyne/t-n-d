@@ -18,6 +18,7 @@ class Landing extends Component {
               </p>
               <br />
             </div>
+              {/* register button */}
             <div className="col s6">
               <Link
                 to="/register"
@@ -31,6 +32,7 @@ class Landing extends Component {
                 Register
               </Link>
             </div>
+            {/* login button */}
             <div className="col s6">
               <Link
                 to="/login"

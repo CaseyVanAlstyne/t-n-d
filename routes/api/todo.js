@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
-// const Todo = require("../../models/Todo");
 const User = require("../../models/User");
 
+// POST Route to push a new todo item to a selected user by ID
 router.post("/addquest/:id/", (req, res) => {
   console.log("hey there world", req.body);
   let todo = {

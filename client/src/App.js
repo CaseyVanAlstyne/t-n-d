@@ -36,14 +36,15 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
+        {/* router to send the correct react files to the user based on url */}
         <Router>
           <div className="App">
-            <Navbar />
-            <Route exact path="/" component={Landing} />
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/login" component={Login} />
+            <Navbar /> {/* nav bar meant for all pages */}
+            <Route exact path="/" component={Landing} /> {/* Landing page to direct a user to login or register */}
+            <Route exact path="/register" component={Register} /> {/* register page to add a user to the database */}
+            <Route exact path="/login" component={Login} /> {/* login page for users who have registered. If already logged in will redirect to dashboard */}
             <Switch>
-              <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              <PrivateRoute exact path="/dashboard" component={Dashboard} /> {/* main user page with tasks and user stats */}
             </Switch>
           </div>
         </Router>

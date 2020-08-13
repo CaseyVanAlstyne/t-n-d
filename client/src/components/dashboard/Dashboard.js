@@ -7,6 +7,7 @@ import Quests from "../quests/Quests";
 import Statblock from "../statblock/statblock.js";
 import API from "../../utils/API.js";
 
+// state of the application
 class Dashboard extends Component {
   state = {
     id: this.props.auth.user.id,
@@ -19,11 +20,13 @@ class Dashboard extends Component {
     todoName: "",
   };
 
+  // function to handle changes in the quests pannel
   handleInputChange = (event) => {
     const value = event.target.value;
     this.setState({ todoName: value });
   };
 
+  // function to add a todo to the state and then send that information to the database
   submitTodo = (e) => {
     e.preventDefault();
     // let newQuestList = this.state.quests;
@@ -43,6 +46,7 @@ class Dashboard extends Component {
     );
   };
 
+  // function to log user out
   onLogoutClick = (e) => {
     e.preventDefault();
     this.props.logoutUser();
@@ -54,6 +58,7 @@ class Dashboard extends Component {
     console.log(user);
     return (
       <>
+      {/* component that renders user stat information */}
         <Statblock
           userid={this.state.id}
           currentHealth={this.state.currentHealth}
@@ -61,17 +66,20 @@ class Dashboard extends Component {
           name={this.state.name}
           experience={this.state.experience}
         />
+        {/* component that renders active quests/todos */}
         <Quests
           quests={this.state.quests}
           handleInputChange={this.handleInputChange}
           submitTodo={this.submitTodo}
         />
+        {/* component that reders daily tasks */}
         {/* <Dailies
           dailies={this.state.dailies}
           handleInputChange={this.handleInputChange}
           submitTodo={this.submitTodo}
         /> */}
 
+        {/* logout button */}
         <button
           style={{
             width: "150px",

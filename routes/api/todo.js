@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
-// const Todo = require("../../models/Todo");
 const User = require("../../models/User");
 
+// POST Route to push a new todo item to a selected user by ID
 router.post("/addquest/:id/", (req, res) => {
   console.log("hey there world", req.body);
   let todo = {
@@ -19,6 +19,7 @@ router.post("/addquest/:id/", (req, res) => {
   );
 });
 
+<<<<<<< HEAD
 router.get("/", (req, res) => {
     User.find({}, (err, result) => {
         if (err) {
@@ -28,6 +29,39 @@ router.get("/", (req, res) => {
         }
     })
 });
+=======
+router.get("/getuser/:id", (req, res) => {
+  User.findById( req.params.id,
+    (error, data) => {
+      if (error) {
+        res.send(error);
+      } else {
+        res.send(data);
+      }
+    }
+)});
+
+// router.post('/add', (req, res) => {
+//     let todo = new Todo(req.body);
+//     todo.save()
+//         .then(todo => {
+//             res.status(200).json({'todo': 'todo added successfully'});
+//         })
+//         .catch(err => {
+//             res.status(400).send('adding new todo failed');
+//         });
+// });
+
+// router.get('/', (req, res) => {
+//     Todo.find((err, todo) => {
+//         if (err) {
+//             console.log(err);
+//         } else {
+//             res.json(todo);
+//         }
+//     });
+// });
+>>>>>>> a02ac1ba32afe457e82d95f7020ec18dbd4ffac0
 
 
 router.delete('/:id', (req, res) => {

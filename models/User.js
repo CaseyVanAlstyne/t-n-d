@@ -6,6 +6,7 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const userSchema = new Schema({
+  // User base information
   name: {
     type: String,
     required: true,
@@ -22,6 +23,7 @@ const userSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  // user stats
   totalHealth: {
     type: Number,
     required: true,
@@ -37,6 +39,7 @@ const userSchema = new Schema({
     required: true,
     default: 0,
   },
+  // user tasks
   quests: [
     {
       name: { type: String, required: true },

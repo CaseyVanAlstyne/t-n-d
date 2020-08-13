@@ -6,7 +6,9 @@ import Quests from "../quests/Quests";
 // import Dailies from "../dailies/Dailies";
 import Statblock from "../statblock/statblock.js";
 import API from "../../utils/API.js";
+// import { compareSync } from "bcryptjs";
 
+// state of the application
 class Dashboard extends Component {
   state = {
     id: this.props.auth.user.id,
@@ -19,11 +21,13 @@ class Dashboard extends Component {
     todoName: "",
   };
 
+  // function to handle changes in the quests pannel
   handleInputChange = (event) => {
     const value = event.target.value;
     this.setState({ todoName: value });
   };
 
+  // function to add a todo to the state and then send that information to the database
   submitTodo = (e) => {
     e.preventDefault();
     // let newQuestList = this.state.quests;
@@ -43,24 +47,39 @@ class Dashboard extends Component {
     );
   };
 
-  deleteTodo(id) {
-    console.log("click triggered", id)
-    API.deleteTodo(id)
-    // .then(res => API.showTodo())
-    // .catch(err => console.log(err));
-  }
-
+  // function to log user out
   onLogoutClick = (e) => {
     e.preventDefault();
     this.props.logoutUser();
   };
 
+  // functions needed on page load
+  componentDidMount() {
+    let user = ""
+    // api call to get user data
+    API.getUser(this.state.id).then(function({ data }){
+      console.log("did this work?")
+      // sets user data to be used outside of api call
+      user = data
+    }).then(
+      () => {
+        // sets user data based on database information to allow for persistance through page reloads without logging in and out
+        this.setState({quests: user.quests,
+          currentHealth: user.currentHealth,
+          totalHealth: user.totalHealth,
+          dailies: user.dailies,
+          experience: user.experience,
+        })
+      }
+    )
+  }
   render() {
-    const { user } = this.props.auth;
-    console.log(this.state);
-    console.log(user);
+    // const { user } = this.props.auth;
+    // console.log(this.state);
+    // console.log(user);
     return (
       <>
+      {/* component that renders user stat information */}
         <Statblock
           userid={this.state.id}
           currentHealth={this.state.currentHealth}
@@ -68,18 +87,21 @@ class Dashboard extends Component {
           name={this.state.name}
           experience={this.state.experience}
         />
+        {/* component that renders active quests/todos */}
         <Quests
           quests={this.state.quests}
           handleInputChange={this.handleInputChange}
           submitTodo={this.submitTodo}
           onClick={this.deleteTodo}
         />
+        {/* component that reders daily tasks */}
         {/* <Dailies
           dailies={this.state.dailies}
           handleInputChange={this.handleInputChange}
           submitTodo={this.submitTodo}
         /> */}
 
+        {/* logout button */}
         <button
           style={{
             width: "150px",

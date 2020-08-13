@@ -6,7 +6,7 @@ class Landing extends Component {
       <div style={{ height: "75vh" }} className="container valign-wrapper">
         <div className="row">
           <div className="col s12 center-align">
-            <div class="card-panel horizontal grey lighten-5">
+            <div className="card-panel horizontal grey lighten-5">
               <h1>
                 <b>T&D</b>
               </h1>
@@ -18,6 +18,7 @@ class Landing extends Component {
               </p>
               <br />
             </div>
+              {/* register button */}
             <div className="col s6">
               <Link
                 to="/register"
@@ -31,6 +32,7 @@ class Landing extends Component {
                 Register
               </Link>
             </div>
+            {/* login button */}
             <div className="col s6">
               <Link
                 to="/login"

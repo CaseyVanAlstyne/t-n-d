@@ -1,10 +1,10 @@
 import React from "react";
+import "./style.css";
 // import { Link } from "react-router-dom";
 // import ListItem from "../dailies/ListItem"
 
 export default function Quests(props) {
-
-  console.log(props);
+  // console.log(props);
   return (
     <section className="container">
       <div className="row">
@@ -17,21 +17,24 @@ export default function Quests(props) {
             </div>
             <div className="questItems">
               {props.quests ? (
-                <ul>
+                <ul className="collection">
                   {props.quests.map((todo) => (
-                    <li key={todo.name}>
+                    <li className="collection-item" key={todo.name}>
                       {todo.name}
+                      <span> || </span>
                       {todo.experience}
+                      <span> Exp. </span>
                       {/* {todo.date} */}
                       {/* LOOK AT ME! maybe add moment.js here instead of using "Date" */}
-                      <button type="submit">Complete</button>
-                      <button onClick={() => props.onClick(todo._id)} type="submit">Delete</button>
+                      
+                      <button type="submit" className="right btn-small size red waves-effect">Delete</button>
+                      <button type="submit" className="right btn-small size blue waves-effect waves-light">Complete</button>
                     </li>
                   ))}
                 </ul>
               ) : (
-                <h4>"Start your first quest, DUMMY!"</h4>
-              )}
+                  <h4>"Start your first quest, DUMMY!"</h4>
+                )}
             </div>
             <form className="questForm">
               <input

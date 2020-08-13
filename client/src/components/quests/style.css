@@ -1,0 +1,9 @@
+.size {
+  position: relative;
+  top: -4px;
+  max-height: 30px;
+}
+.fixed-action-btn{
+  position: relative;
+  margin-left: 5%;
+}

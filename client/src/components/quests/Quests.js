@@ -4,7 +4,7 @@ import "./style.css";
 // import ListItem from "../dailies/ListItem"
 
 export default function Quests(props) {
-  console.log(props);
+  // console.log(props);
   return (
     <section className="container">
       <div className="row">

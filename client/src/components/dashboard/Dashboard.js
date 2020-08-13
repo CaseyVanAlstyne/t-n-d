@@ -6,6 +6,7 @@ import Quests from "../quests/Quests";
 // import Dailies from "../dailies/Dailies";
 import Statblock from "../statblock/statblock.js";
 import API from "../../utils/API.js";
+// import { compareSync } from "bcryptjs";
 
 // state of the application
 class Dashboard extends Component {
@@ -52,10 +53,30 @@ class Dashboard extends Component {
     this.props.logoutUser();
   };
 
+  // functions needed on page load
+  componentDidMount() {
+    let user = ""
+    // api call to get user data
+    API.getUser(this.state.id).then(function({ data }){
+      console.log("did this work?")
+      // sets user data to be used outside of api call
+      user = data
+    }).then(
+      () => {
+        // sets user data based on database information to allow for persistance through page reloads without logging in and out
+        this.setState({quests: user.quests,
+          currentHealth: user.currentHealth,
+          totalHealth: user.totalHealth,
+          dailies: user.dailies,
+          experience: user.experience,
+        })
+      }
+    )
+  }
   render() {
-    const { user } = this.props.auth;
-    console.log(this.state);
-    console.log(user);
+    // const { user } = this.props.auth;
+    // console.log(this.state);
+    // console.log(user);
     return (
       <>
       {/* component that renders user stat information */}

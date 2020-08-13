@@ -19,9 +19,16 @@ router.post("/addquest/:id/", (req, res) => {
   );
 });
 
-router.get("/adduser/:id", (req, res) => {
-  return
-})
+router.get("/getuser/:id", (req, res) => {
+  User.findById( req.params.id,
+    (error, data) => {
+      if (error) {
+        res.send(error);
+      } else {
+        res.send(data);
+      }
+    }
+)});
 
 // router.post('/add', (req, res) => {
 //     let todo = new Todo(req.body);

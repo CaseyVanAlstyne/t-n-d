@@ -7,6 +7,7 @@ import Quests from "../quests/Quests";
 import Statblock from "../statblock/statblock.js";
 import API from "../../utils/API.js";
 // import { compareSync } from "bcryptjs";
+import { v4 as uuidv4 } from 'uuid';
 
 // state of the application
 class Dashboard extends Component {
@@ -35,6 +36,7 @@ class Dashboard extends Component {
       name: this.state.todoName,
       experience: 20,
       date: Date.now,
+      id: uuidv4()
     };
     this.setState(
       {

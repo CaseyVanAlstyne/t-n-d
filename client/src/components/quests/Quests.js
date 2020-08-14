@@ -19,7 +19,7 @@ export default function Quests(props) {
               {props.quests ? (
                 <ul className="collection">
                   {props.quests.map((todo) => (
-                    <li className="collection-item" key={todo.name}>
+                    <li id={todo.id} className="collection-item" key={todo.name}>
                       {todo.name}
                       <span> || </span>
                       {todo.experience}

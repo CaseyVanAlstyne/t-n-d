@@ -60,7 +60,6 @@ class Dashboard extends Component {
     let user = ""
     // api call to get user data
     API.getUser(this.state.id).then(function({ data }){
-      console.log("did this work?")
       // sets user data to be used outside of api call
       user = data
     }).then(

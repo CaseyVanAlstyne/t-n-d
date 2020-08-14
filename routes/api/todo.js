@@ -30,33 +30,12 @@ router.get("/getuser/:id", (req, res) => {
     }
 )});
 
-// router.post('/add', (req, res) => {
-//     let todo = new Todo(req.body);
-//     todo.save()
-//         .then(todo => {
-//             res.status(200).json({'todo': 'todo added successfully'});
-//         })
-//         .catch(err => {
-//             res.status(400).send('adding new todo failed');
-//         });
-// });
 
-// router.get('/', (req, res) => {
-//     Todo.find((err, todo) => {
-//         if (err) {
-//             console.log(err);
-//         } else {
-//             res.json(todo);
-//         }
-//     });
-// });
+router.delete("/deletequest/:id/:questId",(req, res) => {
+  User.findByIdAndUpdate(req.params.id, 
+    {$pull: {quests:{id:req.params.questId}}}
+)})
 
-// router.get('/:id', (req, res) => {
-//     let id = req.params.id;
-//     Todo.findById(id, (err, todo) => {
-//         res.json(todo);
-//     });
-// });
 
 // router.delete("/:id", (req, res) => {
 //     const id = req.params.id;

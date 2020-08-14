@@ -76,9 +76,22 @@ class Dashboard extends Component {
   }
 
   deleteQuest(id, questId) {
-    () => {API.deleteQuest(id, questId)}
-    .then ()
+
+    console.log('The link was clicked.', questId)
+    API.deleteQuest(id, questId)
+    
+    .then(() => {
+      //remove the quest with questID from  quests state
+      //update quests state
+      //use array filter ( where questid of quest !== questId)
+      
+      var filteredQuests = this.state.quests.filter((quest) => {return quest.id !== questId})
+      this.setState({quests: filteredQuests})
+      
+    })
+    
   }
+
   render() {
     // const { user } = this.props.auth;
     // console.log(this.state);
@@ -98,6 +111,8 @@ class Dashboard extends Component {
           quests={this.state.quests}
           handleInputChange={this.handleInputChange}
           submitTodo={this.submitTodo}
+          onClick={() => this.deleteQuest()}
+
         />
         {/* component that reders daily tasks */}
         {/* <Dailies

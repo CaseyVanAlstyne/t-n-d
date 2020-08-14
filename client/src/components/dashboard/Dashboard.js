@@ -77,6 +77,7 @@ class Dashboard extends Component {
 
   deleteQuest(id, questId) {
     () => {API.deleteQuest(id, questId)}
+    .then ()
   }
   render() {
     // const { user } = this.props.auth;

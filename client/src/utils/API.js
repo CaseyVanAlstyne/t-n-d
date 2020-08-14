@@ -13,5 +13,9 @@ export default {
   // api call used in dashboard component to return full user data
   getUser: function(id){
     return axios.get(`/api/getuser/${id}`)
-  }
+  },
+
+  deleteQuest: function(id, questId) {
+    return axios.delete(`api/deletequest/${id}/${questId}`)
+  } 
 };

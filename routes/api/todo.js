@@ -20,30 +20,21 @@ router.post("/addquest/:id/", (req, res) => {
 });
 
 router.get("/getuser/:id", (req, res) => {
-  User.findById( req.params.id,
-    (error, data) => {
-      if (error) {
-        res.send(error);
-      } else {
-        res.send(data);
-      }
+  User.findById(req.params.id, (error, data) => {
+    if (error) {
+      res.send(error);
+    } else {
+      res.send(data);
     }
-)});
+  });
+});
 
-
-router.post("/deletequest/:id/:questId",(req, res) => {
+router.put("/deletequest/:id/:questId", (req, res) => {
   console.log(req.params.id, req.params.questId);
-  User.findByIdAndUpdate(req.params.id, 
-    {$pull: {quests:{id:req.params.questId}}}
-)})
-
-
-// router.delete("/:id", (req, res) => {
-//     const id = req.params.id;
-//     Todo.findByIdAndRemove(id, err => {
-//     if (err) return res.send(500, err);
-//     res.redirect("/");
-//     });
-//     });
-
+  User.findByIdAndUpdate(req.params.id, {
+    $pull: { quests: { id: req.params.questId } },
+  }).then(() => {
+    res.json({ ok: true });
+  });
+});
 module.exports = router;

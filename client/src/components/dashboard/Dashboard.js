@@ -45,6 +45,8 @@ class Dashboard extends Component {
       },
       () => {
         API.addTodo(this.state.id, questListData);
+        console.log(this.clearInput);
+        this.clearInput();
       }
     );
   };
@@ -75,6 +77,11 @@ class Dashboard extends Component {
         });
       });
   }
+
+  clearInput = () => {
+    this.setState({ todoName: "" });
+    document.getElementById("submitForm").value = "";
+  };
 
   deleteQuest(id, e) {
     const questId = e.target.parentNode.id;

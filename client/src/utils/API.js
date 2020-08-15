@@ -16,6 +16,6 @@ export default {
   },
 
   deleteQuest: function(id, questId) {
-    return axios.delete(`api/deletequest/${id}/${questId}`)
+    return axios.post(`api/deletequest/${id}/${questId}`)
   } 
 };

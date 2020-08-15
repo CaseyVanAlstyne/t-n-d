@@ -54,6 +54,8 @@ export default function Quests(props) {
               <input
                 placeholder="enter quest"
                 onChange={props.handleInputChange}
+                type="text"
+                id="submitForm"
               ></input>
               <button type="submit" onClick={props.submitTodo}>
                 Add Quest

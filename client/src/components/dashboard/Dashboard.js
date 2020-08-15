@@ -75,9 +75,9 @@ class Dashboard extends Component {
     )
   }
 
-  deleteQuest(id, questId) {
-
-    console.log('The link was clicked.', questId)
+  deleteQuest(id, e) {
+    const questId = e.target.parentNode.id;
+    console.log('The link was clicked.', id, questId)
     API.deleteQuest(id, questId)
     
     .then(() => {
@@ -86,6 +86,7 @@ class Dashboard extends Component {
       //use array filter ( where questid of quest !== questId)
       
       var filteredQuests = this.state.quests.filter((quest) => {return quest.id !== questId})
+      console.log(filteredQuests);
       this.setState({quests: filteredQuests})
       
     })
@@ -111,7 +112,7 @@ class Dashboard extends Component {
           quests={this.state.quests}
           handleInputChange={this.handleInputChange}
           submitTodo={this.submitTodo}
-          onClick={() => this.deleteQuest()}
+          onClick={(e) => this.deleteQuest(this.state.id, e)}
 
         />
         {/* component that reders daily tasks */}

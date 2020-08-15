@@ -31,7 +31,8 @@ router.get("/getuser/:id", (req, res) => {
 )});
 
 
-router.delete("/deletequest/:id/:questId",(req, res) => {
+router.post("/deletequest/:id/:questId",(req, res) => {
+  console.log(req.params.id, req.params.questId);
   User.findByIdAndUpdate(req.params.id, 
     {$pull: {quests:{id:req.params.questId}}}
 )})

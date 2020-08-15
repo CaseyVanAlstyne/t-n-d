@@ -20,9 +20,10 @@ class Dashboard extends Component {
     quests: this.props.auth.user.quests,
     dailies: this.props.auth.user.dailies,
     todoName: "",
+    errors: "",
   };
 
-  // function to handle changes in the quests pannel
+  // function to handle changes in the quests panel
   handleInputChange = (event) => {
     const value = event.target.value;
     this.setState({ todoName: value });
@@ -32,6 +33,14 @@ class Dashboard extends Component {
   submitTodo = (e) => {
     e.preventDefault();
     // let newQuestList = this.state.quests;
+    if (this.state.todoName === "") {
+      this.setState({
+        errors: "Please enter a quest before embarking on your adventure!",
+      });
+      return;
+    }
+    this.setState({ errors: "" });
+
     const questListData = {
       name: this.state.todoName,
       experience: 20,
@@ -45,7 +54,6 @@ class Dashboard extends Component {
       },
       () => {
         API.addTodo(this.state.id, questListData);
-        console.log(this.clearInput);
         this.clearInput();
       }
     );
@@ -128,7 +136,10 @@ class Dashboard extends Component {
           submitTodo={this.submitTodo}
           onClick={(e) => this.deleteQuest(this.state.id, e)}
           onClick={(e) => this.completeQuest(this.state.id, e)}
+          errors={this.state.errors}
+          // submitDisabled={!this.state.todoName}
         />
+
         {/* component that reders daily tasks */}
         {/* <Dailies
           dailies={this.state.dailies}

@@ -57,7 +57,14 @@ export default function Quests(props) {
                 type="text"
                 id="submitForm"
               ></input>
-              <button type="submit" onClick={props.submitTodo}>
+              <p className="errorMessage" style={{ color: "red" }}>
+                {props.errors}
+              </p>
+              <button
+                type="submit"
+                onClick={props.submitTodo}
+                // disabled={props.submitDisabled}
+              >
                 Add Quest
               </button>
             </form>

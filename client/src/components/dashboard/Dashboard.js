@@ -7,7 +7,7 @@ import Quests from "../quests/Quests";
 import Statblock from "../statblock/statblock.js";
 import API from "../../utils/API.js";
 // import { compareSync } from "bcryptjs";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 // state of the application
 class Dashboard extends Component {
@@ -36,7 +36,7 @@ class Dashboard extends Component {
       name: this.state.todoName,
       experience: 20,
       date: Date.now,
-      id: uuidv4()
+      id: uuidv4(),
     };
     this.setState(
       {
@@ -57,40 +57,38 @@ class Dashboard extends Component {
 
   // functions needed on page load
   componentDidMount() {
-    let user = ""
+    let user = "";
     // api call to get user data
-    API.getUser(this.state.id).then(function({ data }){
-      // sets user data to be used outside of api call
-      user = data
-    }).then(
-      () => {
+    API.getUser(this.state.id)
+      .then(function ({ data }) {
+        // sets user data to be used outside of api call
+        user = data;
+      })
+      .then(() => {
         // sets user data based on database information to allow for persistance through page reloads without logging in and out
-        this.setState({quests: user.quests,
+        this.setState({
+          quests: user.quests,
           currentHealth: user.currentHealth,
           totalHealth: user.totalHealth,
           dailies: user.dailies,
           experience: user.experience,
-        })
-      }
-    )
+        });
+      });
   }
 
   deleteQuest(id, e) {
     const questId = e.target.parentNode.id;
-    console.log('The link was clicked.', id, questId)
-    API.deleteQuest(id, questId)
-    
-    .then(() => {
+    console.log("The link was clicked.", id, questId);
+    API.deleteQuest(id, questId).then(() => {
       //remove the quest with questID from  quests state
       //update quests state
       //use array filter ( where questid of quest !== questId)
-      
-      var filteredQuests = this.state.quests.filter((quest) => {return quest.id !== questId})
+      var filteredQuests = this.state.quests.filter((quest) => {
+        return quest.id !== questId;
+      });
       console.log(filteredQuests);
-      this.setState({quests: filteredQuests})
-      
-    })
-    
+      this.setState({ quests: filteredQuests });
+    });
   }
 
   render() {
@@ -99,7 +97,7 @@ class Dashboard extends Component {
     // console.log(user);
     return (
       <>
-      {/* component that renders user stat information */}
+        {/* component that renders user stat information */}
         <Statblock
           userid={this.state.id}
           currentHealth={this.state.currentHealth}
@@ -113,7 +111,6 @@ class Dashboard extends Component {
           handleInputChange={this.handleInputChange}
           submitTodo={this.submitTodo}
           onClick={(e) => this.deleteQuest(this.state.id, e)}
-
         />
         {/* component that reders daily tasks */}
         {/* <Dailies

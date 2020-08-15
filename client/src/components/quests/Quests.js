@@ -19,22 +19,36 @@ export default function Quests(props) {
               {props.quests ? (
                 <ul className="collection">
                   {props.quests.map((todo) => (
-                    <li id={todo.id} className="collection-item" key={todo.name}>
+                    <li
+                      id={todo.id}
+                      className="collection-item"
+                      key={todo.name}
+                    >
                       {todo.name}
                       <span> || </span>
                       {todo.experience}
                       <span> Exp. </span>
                       {/* {todo.date} */}
                       {/* LOOK AT ME! maybe add moment.js here instead of using "Date" */}
-                      
-                      <button onClick={props.onClick} className="right btn-small size red waves-effect">Delete</button>
-                      <button className="right btn-small size blue waves-effect waves-light">Complete</button>
+
+                      <button
+                        onClick={props.onClick}
+                        className="right btn-small size red waves-effect"
+                      >
+                        Delete
+                      </button>
+                      <button
+                        onClick={props.onClick}
+                        className="right btn-small size blue waves-effect waves-light"
+                      >
+                        Complete
+                      </button>
                     </li>
                   ))}
                 </ul>
               ) : (
-                  <h4>"Start your first quest, DUMMY!"</h4>
-                )}
+                <h4>"Start your first quest, DUMMY!"</h4>
+              )}
             </div>
             <form className="questForm">
               <input

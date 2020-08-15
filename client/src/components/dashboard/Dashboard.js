@@ -80,9 +80,18 @@ class Dashboard extends Component {
     const questId = e.target.parentNode.id;
     console.log("The link was clicked.", id, questId);
     API.deleteQuest(id, questId).then(() => {
-      //remove the quest with questID from  quests state
-      //update quests state
-      //use array filter ( where questid of quest !== questId)
+      var filteredQuests = this.state.quests.filter((quest) => {
+        return quest.id !== questId;
+      });
+      console.log(filteredQuests);
+      this.setState({ quests: filteredQuests });
+    });
+  }
+
+  completeQuest(id, e) {
+    const questId = e.target.parentNode.id;
+    console.log("The link was clicked.", id, questId);
+    API.deleteQuest(id, questId).then(() => {
       var filteredQuests = this.state.quests.filter((quest) => {
         return quest.id !== questId;
       });
@@ -111,6 +120,7 @@ class Dashboard extends Component {
           handleInputChange={this.handleInputChange}
           submitTodo={this.submitTodo}
           onClick={(e) => this.deleteQuest(this.state.id, e)}
+          onClick={(e) => this.completeQuest(this.state.id, e)}
         />
         {/* component that reders daily tasks */}
         {/* <Dailies

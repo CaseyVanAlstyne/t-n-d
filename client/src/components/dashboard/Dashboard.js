@@ -6,8 +6,8 @@ import Quests from "../quests/Quests";
 // import Dailies from "../dailies/Dailies";
 import Statblock from "../statblock/statblock.js";
 import API from "../../utils/API.js";
-// import { compareSync } from "bcryptjs";
 import { v4 as uuidv4 } from "uuid";
+// import { compareSync } from "bcryptjs";
 
 // state of the application
 class Dashboard extends Component {
@@ -59,6 +59,16 @@ class Dashboard extends Component {
     );
   };
 
+  updateExperience(id, experience) {
+    let currentExp = Math.floor(this.state.experience) + Math.floor(experience)
+    this.setState(
+      { experience: currentExp },
+      () => {
+        API.updateEXP(id, currentExp)
+      }
+    );
+  };
+
   // function to log user out
   onLogoutClick = (e) => {
     e.preventDefault();
@@ -91,9 +101,11 @@ class Dashboard extends Component {
     document.getElementById("submitForm").value = "";
   };
 
+
+
   deleteQuest(id, e) {
     const questId = e.target.parentNode.id;
-    console.log("The link was clicked.", id, questId);
+    console.log("Delete was clicked.", id, questId);
     API.deleteQuest(id, questId).then(() => {
       var filteredQuests = this.state.quests.filter((quest) => {
         return quest.id !== questId;
@@ -104,8 +116,13 @@ class Dashboard extends Component {
   }
 
   completeQuest(id, e) {
+    e.preventDefault();
     const questId = e.target.parentNode.id;
-    console.log("The link was clicked.", id, questId);
+    const questExp = e.target.id;
+    console.log(questId)
+    console.log(questExp)
+    console.log("Complete was clicked.", id, questId);
+    this.updateExperience(id, questExp);
     API.deleteQuest(id, questId).then(() => {
       var filteredQuests = this.state.quests.filter((quest) => {
         return quest.id !== questId;
@@ -114,6 +131,7 @@ class Dashboard extends Component {
       this.setState({ quests: filteredQuests });
     });
   }
+
 
   render() {
     // const { user } = this.props.auth;
@@ -134,10 +152,10 @@ class Dashboard extends Component {
           quests={this.state.quests}
           handleInputChange={this.handleInputChange}
           submitTodo={this.submitTodo}
-          onClick={(e) => this.deleteQuest(this.state.id, e)}
-          onClick={(e) => this.completeQuest(this.state.id, e)}
+          onClickDelete={(e) => this.deleteQuest(this.state.id, e)}
+          onClickComplete={(e) => this.completeQuest(this.state.id, e)}
           errors={this.state.errors}
-          // submitDisabled={!this.state.todoName}
+        // submitDisabled={!this.state.todoName}
         />
 
         {/* component that reders daily tasks */}

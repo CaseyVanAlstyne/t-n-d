@@ -4,7 +4,7 @@ import "./style.css";
 // import ListItem from "../dailies/ListItem"
 
 export default function Quests(props) {
-  // console.log(props);
+  console.log(props);
   return (
     <section className="container">
       <div className="row">
@@ -23,6 +23,7 @@ export default function Quests(props) {
                       id={todo.id}
                       className="collection-item"
                       key={todo.name}
+                      exp={todo.experience}
                     >
                       {todo.name}
                       <span> || </span>
@@ -32,14 +33,15 @@ export default function Quests(props) {
                       {/* LOOK AT ME! maybe add moment.js here instead of using "Date" */}
 
                       <button
-                        onClick={props.onClick}
+                        onClick={props.onClickDelete}
                         className="right btn-small size red waves-effect"
                       >
                         Delete
                       </button>
                       <button
-                        onClick={props.onClick}
+                        onClick={props.onClickComplete}
                         className="right btn-small size blue waves-effect waves-light"
+                        id={todo.experience}
                       >
                         Complete
                       </button>

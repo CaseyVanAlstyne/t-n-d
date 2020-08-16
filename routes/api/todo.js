@@ -37,4 +37,13 @@ router.put("/deletequest/:id/:questId", (req, res) => {
     res.json({ ok: true });
   });
 });
+
+router.put("/updateEXP/:id/:exp", (req, res) => {
+  User.findByIdAndUpdate(req.params.id, {
+    $set: {experience: req.params.exp}
+  }).then(() => {
+    res.json({ ok: true });
+  });
+});
+
 module.exports = router;

@@ -20,6 +20,8 @@ export default function statblock(props) {
     width: currentLevel.percent + "%"
   }
 
+  // let testNum = levelMath(480);
+  // console.log(testNum);
 
   return (
     <section className="container">

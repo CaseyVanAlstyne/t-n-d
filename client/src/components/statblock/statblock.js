@@ -1,7 +1,26 @@
 import React from "react";
 // import OIP from '../../../public/img/OIP.jpg'
 
+
 export default function statblock(props) {
+  // math function to get level and expBar percent
+  let levelMath = (num) => {
+    let level = 1 + Math.floor(num / 100)
+    let percent = num % 100
+    let levelObj = {
+      level: level,
+      percent: percent,
+    }
+    return levelObj
+  }
+  // setting current level values for component
+  let currentLevel = levelMath(props.experience)
+  // var for styleing to pass into expBar
+  let expBarStyle = {
+    width: currentLevel.percent + "%"
+  }
+
+
   return (
     <section className="container">
       <div className="row">
@@ -30,10 +49,10 @@ export default function statblock(props) {
           <div className="row"></div>
           <p>Exp:{props.experience}</p>
           <div className="progress">
-            <div className="determinate purple" style={{ width: "0%" }}></div>
+            <div className="determinate purple" style={expBarStyle}></div>
           </div>
           <div className="row">
-            <p>LvL: logic not created yet</p>
+            <p>LvL: {currentLevel.level}</p>
           </div>
         </div>
       </div>

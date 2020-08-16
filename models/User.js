@@ -48,7 +48,14 @@ const userSchema = new Schema({
       id: {type: String, required: true}
     },
   ],
-  // dailies: [],
+  dailies: [
+    {
+      name: { type: String, required: true },
+      experience: { type: Number, required: true, default: 20 },
+      date: { type: Date, default: Date.now },
+      id: {type: String, required: true}
+    },
+  ],
 });
 
 const User = mongoose.model("User", userSchema);

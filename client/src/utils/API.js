@@ -17,4 +17,8 @@ export default {
   deleteQuest: function (id, questId) {
     return axios.put(`api/deletequest/${id}/${questId}`);
   },
+
+  updateEXP: function (id, experience) {
+    return axios.put(`api/updateEXP/${id}/${experience}`);
+  }
 };

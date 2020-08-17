@@ -7,6 +7,8 @@ import Quests from "../quests/Quests";
 import Statblock from "../statblock/statblock.js";
 import API from "../../utils/API.js";
 import { v4 as uuidv4 } from "uuid";
+import "materialize-css"
+import M from "materialize-css"
 // import { compareSync } from "bcryptjs";
 
 // state of the application
@@ -20,13 +22,19 @@ class Dashboard extends Component {
     quests: this.props.auth.user.quests,
     dailies: this.props.auth.user.dailies,
     todoName: "",
+    todoDate: "",
     errors: "",
   };
+  
 
   // function to handle changes in the quests panel
   handleInputChange = (event) => {
     const value = event.target.value;
     this.setState({ todoName: value });
+  };
+
+  handleDateChange = (event) => {
+    this.setState({ todoDate: event.target.date });
   };
 
   // function to add a todo to the state and then send that information to the database
@@ -40,7 +48,7 @@ class Dashboard extends Component {
       return;
     }
     this.setState({ errors: "" });
-
+    console.log(e.target.parentNode);
     const questListData = {
       name: this.state.todoName,
       experience: 20,
@@ -77,6 +85,10 @@ class Dashboard extends Component {
 
   // functions needed on page load
   componentDidMount() {
+    document.addEventListener('DOMContentLoaded', function() {
+      var elems = document.querySelectorAll('.datepicker');
+      var instances = M.Datepicker.init(elems, {});
+    });
     let user = "";
     // api call to get user data
     API.getUser(this.state.id)
@@ -100,8 +112,6 @@ class Dashboard extends Component {
     this.setState({ todoName: "" });
     document.getElementById("submitForm").value = "";
   };
-
-
 
   deleteQuest(id, e) {
     const questId = e.target.parentNode.id;
@@ -132,7 +142,6 @@ class Dashboard extends Component {
     });
   }
 
-
   render() {
     // const { user } = this.props.auth;
     // console.log(this.state);
@@ -151,6 +160,7 @@ class Dashboard extends Component {
         <Quests
           quests={this.state.quests}
           handleInputChange={this.handleInputChange}
+          handleDateChange={this.handleDateChange}
           submitTodo={this.submitTodo}
           onClickDelete={(e) => this.deleteQuest(this.state.id, e)}
           onClickComplete={(e) => this.completeQuest(this.state.id, e)}

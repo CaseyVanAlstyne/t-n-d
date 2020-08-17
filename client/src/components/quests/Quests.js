@@ -4,7 +4,7 @@ import "./style.css";
 // import ListItem from "../dailies/ListItem"
 
 export default function Quests(props) {
-  console.log(props);
+  // console.log(props);
   return (
     <section className="container">
       <div className="row">
@@ -53,12 +53,20 @@ export default function Quests(props) {
               )}
             </div>
             <form className="questForm">
+
               <input
                 placeholder="enter quest"
                 onChange={props.handleInputChange}
                 type="text"
                 id="submitForm"
               ></input>
+
+              <input 
+              type="text" 
+              className="datepicker"
+              onChange={props.handleDateChange}
+              ></input>
+              
               <p className="errorMessage" style={{ color: "red" }}>
                 {props.errors}
               </p>

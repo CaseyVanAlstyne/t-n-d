@@ -1,10 +1,16 @@
 import React from "react";
 import "./style.css";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 // import { Link } from "react-router-dom";
 // import ListItem from "../dailies/ListItem"
 
 export default function Quests(props) {
   // console.log(props);
+  React.useEffect(() => {
+    // const el = document.getElementsByClassName('datepicker-date-display')
+    // console.log(el);
+  })
   return (
     <section className="container">
       <div className="row">
@@ -49,31 +55,39 @@ export default function Quests(props) {
                   ))}
                 </ul>
               ) : (
-                <h4>"Start your first quest, DUMMY!"</h4>
-              )}
+                  <h4>"Start your first quest, DUMMY!"</h4>
+                )}
             </div>
             <form className="questForm">
-
+              {/* todo name input */}
               <input
                 placeholder="enter quest"
                 onChange={props.handleInputChange}
                 type="text"
                 id="submitForm"
               ></input>
-
-              <input 
+              {/* React Date Picker */}
+              <DatePicker
+                selected={props.selectedDate}
+                onChange={props.handleDateChange}
+                minDate={new Date()}
+                isClearable
+                showYearDropdown
+                scrollableYearDropdown
+              />
+              {/* <input 
               type="text" 
               className="datepicker"
               onChange={props.handleDateChange}
-              ></input>
-              
+              ></input> */}
+
               <p className="errorMessage" style={{ color: "red" }}>
                 {props.errors}
               </p>
               <button
                 type="submit"
                 onClick={props.submitTodo}
-                // disabled={props.submitDisabled}
+              // disabled={props.submitDisabled}
               >
                 Add Quest
               </button>

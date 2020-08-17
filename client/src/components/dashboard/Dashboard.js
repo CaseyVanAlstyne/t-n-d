@@ -8,7 +8,9 @@ import Statblock from "../statblock/statblock.js";
 import API from "../../utils/API.js";
 import { v4 as uuidv4 } from "uuid";
 import "materialize-css"
-import M from "materialize-css"
+// import M from "materialize-css"
+// import DatePicker from "react-datepicker";
+// import "react-datepicker/dist/react-datepicker.css";
 // import { compareSync } from "bcryptjs";
 
 // state of the application
@@ -26,15 +28,17 @@ class Dashboard extends Component {
     errors: "",
   };
   
-
   // function to handle changes in the quests panel
   handleInputChange = (event) => {
     const value = event.target.value;
     this.setState({ todoName: value });
   };
 
-  handleDateChange = (event) => {
-    this.setState({ todoDate: event.target.date });
+  handleDateChange = (date) => {
+    console.log(date)
+    this.setState({ 
+      todoDate: date 
+    });
   };
 
   // function to add a todo to the state and then send that information to the database
@@ -85,10 +89,15 @@ class Dashboard extends Component {
 
   // functions needed on page load
   componentDidMount() {
-    document.addEventListener('DOMContentLoaded', function() {
-      var elems = document.querySelectorAll('.datepicker');
-      var instances = M.Datepicker.init(elems, {});
-    });
+    // document.addEventListener('DOMContentLoaded', function() {
+    //   var elems = document.querySelectorAll('.datepicker');
+    //   M.Datepicker.init(elems, {
+    //     format: 'mm dd yyyy',
+    //     onClose: () => {
+    //       console.log('the date picker was closed!')
+    //     }
+    //   });
+    // });
     let user = "";
     // api call to get user data
     API.getUser(this.state.id)
@@ -144,8 +153,6 @@ class Dashboard extends Component {
 
   render() {
     // const { user } = this.props.auth;
-    // console.log(this.state);
-    // console.log(user);
     return (
       <>
         {/* component that renders user stat information */}
@@ -159,6 +166,7 @@ class Dashboard extends Component {
         {/* component that renders active quests/todos */}
         <Quests
           quests={this.state.quests}
+          selectedDate={this.state.todoDate}
           handleInputChange={this.handleInputChange}
           handleDateChange={this.handleDateChange}
           submitTodo={this.submitTodo}

@@ -8,9 +8,8 @@ import Statblock from "../statblock/statblock.js";
 import API from "../../utils/API.js";
 import { v4 as uuidv4 } from "uuid";
 import "materialize-css"
+import moment from 'moment';
 // import M from "materialize-css"
-// import DatePicker from "react-datepicker";
-// import "react-datepicker/dist/react-datepicker.css";
 // import { compareSync } from "bcryptjs";
 
 // state of the application
@@ -33,9 +32,8 @@ class Dashboard extends Component {
     const value = event.target.value;
     this.setState({ todoName: value });
   };
-
+  // function to handle state change for todoDate
   handleDateChange = (date) => {
-    console.log(date)
     this.setState({ 
       todoDate: date 
     });
@@ -56,7 +54,7 @@ class Dashboard extends Component {
     const questListData = {
       name: this.state.todoName,
       experience: 20,
-      date: Date.now,
+      date: this.state.todoDate,
       id: uuidv4(),
     };
     this.setState(
@@ -89,15 +87,6 @@ class Dashboard extends Component {
 
   // functions needed on page load
   componentDidMount() {
-    // document.addEventListener('DOMContentLoaded', function() {
-    //   var elems = document.querySelectorAll('.datepicker');
-    //   M.Datepicker.init(elems, {
-    //     format: 'mm dd yyyy',
-    //     onClose: () => {
-    //       console.log('the date picker was closed!')
-    //     }
-    //   });
-    // });
     let user = "";
     // api call to get user data
     API.getUser(this.state.id)
@@ -107,6 +96,9 @@ class Dashboard extends Component {
       })
       .then(() => {
         // sets user data based on database information to allow for persistance through page reloads without logging in and out
+        // loop through quests 
+        // if overdue - harm player - > push task due date 24 hours
+        // else nothing
         this.setState({
           quests: user.quests,
           currentHealth: user.currentHealth,

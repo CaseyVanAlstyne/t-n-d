@@ -2,6 +2,7 @@ import React from "react";
 import "./style.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import moment from 'moment';
 // import { Link } from "react-router-dom";
 // import ListItem from "../dailies/ListItem"
 
@@ -35,22 +36,41 @@ export default function Quests(props) {
                       <span> || </span>
                       {todo.experience}
                       <span> Exp. </span>
-                      {/* {todo.date} */}
+                      <span> || Due </span>
+                      {moment(todo.date).format('MM/DD/YYYY')}
+                      {/* {todo.date.toString().slice(4,10)} */}
                       {/* LOOK AT ME! maybe add moment.js here instead of using "Date" */}
+                      {/* <div className="row"></div>
+                      <div className="row"> */}
+                        {/* <button
+                          onClick={props.onClickComplete}
+                          class="btn-floating btn-small waves-effect waves-light green"
+                          id={todo.experience}
+                          >
+                          <i class="material-icons">check</i>
+                        </button>
+                        <button
+                          class="btn-floating btn-small waves-effect waves-light red"
+                          onClick={props.onClickDelete}>
+                          <i class="material-icons">close</i>
+                        </button> */}
 
-                      <button
-                        onClick={props.onClickDelete}
-                        className="right btn-small size red waves-effect"
-                      >
-                        Delete
+
+
+                        <button
+                          onClick={props.onClickComplete}
+                          className="btn-small size blue waves-effect waves-light"
+                          id={todo.experience}
+                        >
+                          Complete
                       </button>
-                      <button
-                        onClick={props.onClickComplete}
-                        className="right btn-small size blue waves-effect waves-light"
-                        id={todo.experience}
-                      >
-                        Complete
+                        <button
+                          onClick={props.onClickDelete}
+                          className="btn-small size red waves-effect"
+                        >
+                          Delete
                       </button>
+                      {/* </div> */}
                     </li>
                   ))}
                 </ul>

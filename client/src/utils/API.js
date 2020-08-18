@@ -9,6 +9,13 @@ export default {
     });
   },
 
+  addDaily: function (id, questListData) {
+    console.log(questListData);
+    return axios.post(`/api/adddaily/${id}`, {
+      quest: questListData,
+    });
+  },
+
   // api call used in dashboard component to return full user data
   getUser: function (id) {
     return axios.get(`/api/getuser/${id}`);
@@ -16,6 +23,10 @@ export default {
 
   deleteQuest: function (id, questId) {
     return axios.put(`api/deletequest/${id}/${questId}`);
+  },
+
+  deleteDaily: function (id, dailyId) {
+    return axios.put(`api/deletedaily/${id}/${dailyId}`);
   },
 
   updateEXP: function (id, experience) {

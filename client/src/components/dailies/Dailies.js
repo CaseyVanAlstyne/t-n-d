@@ -1,70 +1,80 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import axios from 'axios';
+import React from "react";
+import "./dailies.css"
+import moment from 'moment';
 
-import ListItems from './ListItems';
+export default function Dailies (props) {
 
-const Dailies = () => {
-  const [text, setText] = useState({});
-  const [todos, setTodos] = useState([]);
-
-  useEffect(() => {
-    // axios.get('http://localhost:4000/todos/')
-    //         .then(response => {
-    //             setTodos({ todos: response.data });
-    //         })
-    //         .catch(function (error){
-    //             console.log(error);
-    //         })
-  }, [])
-
-  const handleChange = event => {
-    setText(event.target.value);
-  };
-
-  const handleSubmit = event => {
-    event.preventDefault();
-
-    // axios.post('http://localhost:4000/todos/add', newTodo)
-    //         .then(res => console.log(res.data));
-  }
 
     return (
-      <section className="container">
-        <div className="row">
-          <div className="col s12 m6">
-            <div className="dailiesList">
-              <div className="dailiesListHeader">
-                <h1>
-                  <b>Dailies</b>
-                </h1>
-              </div>
-              <div className="DailyItems">
-                ul (list of daily items) li (each item contains
-                checkbox/complete dailyName, points/experience, complete/delete
-                button)
-                <button type="submit">Complete</button>
-                <button type="submit">Delete</button>
-              </div>
-              <form className="dailyForm">
-                <input placeholder="enter daily"></input>
-                <button type="submit">Add Daily</button>
-              </form>
+          <section className="container">
+      <div className="row">
+        <div className="col s12 m6">
+          <div className="dailiesList">
+            <div className="dailiesListHeader">
+              <h1>
+                <b>Quests</b>
+              </h1>
             </div>
+            <div className="dailiesItems">
+              {props.quests ? (
+                <ul className="collection">
+                  {props.quests.map((todo) => (
+                    <li
+                      id={todo.id}
+                      className="collection-item"
+                      key={todo.name}
+                      exp={todo.experience}
+                    >
+                      {todo.name}
+                      <span> || </span>
+                      {todo.experience}
+                      <span> Exp. </span>
+                      {/* {todo.date} */}
+                      {/* LOOK AT ME! maybe add moment.js here instead of using "Date" */}
+
+                      <button
+                        onClick={props.onClickDelete}
+                        className="right btn-small size red waves-effect"
+                      >
+                        Delete
+                      </button>
+                      <button
+                        onClick={props.onClickComplete}
+                        className="right btn-small size blue waves-effect waves-light"
+                        id={todo.experience}
+                      >
+                        Complete
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <h4>"Start your first daily task!"</h4>
+              )}
+            </div>
+            <form className="dailiesForm">
+              <input
+                placeholder="enter daily task"
+                onChange={props.handleInputChange}
+                type="text"
+                id="submitForm"
+              ></input>
+              <p className="errorMessage" style={{ color: "red" }}>
+                {props.errors}
+              </p>
+              <button
+                type="submit"
+                onClick={props.submitTodo}
+                // disabled={props.submitDisabled}
+              >
+                Add Daily Task
+              </button>
+            </form>
           </div>
         </div>
-
-        <div className="DailyItems">
-          <ListItems todos={todos} />
-            <button type="submit">Complete</button>
-            <button type="submit">Delete</button>
-        </div>
-        <form onSubmit={handleSubmit} className="dailyForm">
-          <input placeholder="enter daily" onChange={handleChange}></input>
-          <button type="submit">Add Daily</button>
-        </form>
-      </section>
+      </div>
+    </section>
     );
 
 }
-export default Dailies;
+

@@ -7,6 +7,9 @@ import Dailies from "../dailies/Dailies";
 import Statblock from "../statblock/statblock.js";
 import API from "../../utils/API.js";
 import { v4 as uuidv4 } from "uuid";
+import "materialize-css"
+import moment from 'moment';
+// import M from "materialize-css"
 // import { compareSync } from "bcryptjs";
 
 // state of the application
@@ -20,13 +23,20 @@ class Dashboard extends Component {
     quests: this.props.auth.user.quests,
     dailies: this.props.auth.user.dailies,
     todoName: "",
+    todoDate: "",
     errors: "",
   };
-
+  
   // function to handle changes in the quests panel
   handleInputChange = (event) => {
     const value = event.target.value;
     this.setState({ todoName: value });
+  };
+  // function to handle state change for todoDate
+  handleDateChange = (date) => {
+    this.setState({ 
+      todoDate: date 
+    });
   };
 
   // function to add a todo to the state and then send that information to the database
@@ -40,11 +50,11 @@ class Dashboard extends Component {
       return;
     }
     this.setState({ errors: "" });
-
+    console.log(e.target.parentNode);
     const questListData = {
       name: this.state.todoName,
       experience: 20,
-      date: Date.now,
+      date: this.state.todoDate,
       id: uuidv4(),
     };
     this.setState(
@@ -115,6 +125,9 @@ class Dashboard extends Component {
       })
       .then(() => {
         // sets user data based on database information to allow for persistance through page reloads without logging in and out
+        // loop through quests 
+        // if overdue - harm player - > push task due date 24 hours
+        // else nothing
         this.setState({
           quests: user.quests,
           currentHealth: user.currentHealth,
@@ -129,8 +142,6 @@ class Dashboard extends Component {
     this.setState({ todoName: "" });
     document.getElementById("submitForm").value = "";
   };
-
-
 
   deleteQuest(id, e) {
     const questId = e.target.parentNode.id;
@@ -192,8 +203,6 @@ class Dashboard extends Component {
 
   render() {
     // const { user } = this.props.auth;
-    // console.log(this.state);
-    // console.log(user);
     return (
       <>
         {/* component that renders user stat information */}
@@ -207,7 +216,9 @@ class Dashboard extends Component {
         {/* component that renders active quests/todos */}
         <Quests
           quests={this.state.quests}
+          selectedDate={this.state.todoDate}
           handleInputChange={this.handleInputChange}
+          handleDateChange={this.handleDateChange}
           submitTodo={this.submitTodo}
           onClickDelete={(e) => this.deleteQuest(this.state.id, e)}
           onClickComplete={(e) => this.completeQuest(this.state.id, e)}

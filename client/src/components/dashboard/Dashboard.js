@@ -7,9 +7,7 @@ import Quests from "../quests/Quests";
 import Statblock from "../statblock/statblock.js";
 import API from "../../utils/API.js";
 import { v4 as uuidv4 } from "uuid";
-import "materialize-css"
-import moment from 'moment';
-// import M from "materialize-css"
+import moment from "moment";
 // import { compareSync } from "bcryptjs";
 
 // state of the application
@@ -26,7 +24,7 @@ class Dashboard extends Component {
     todoDate: "",
     errors: "",
   };
-  
+
   // function to handle changes in the quests panel
   handleInputChange = (event) => {
     const value = event.target.value;
@@ -34,8 +32,8 @@ class Dashboard extends Component {
   };
   // function to handle state change for todoDate
   handleDateChange = (date) => {
-    this.setState({ 
-      todoDate: date 
+    this.setState({
+      todoDate: date,
     });
   };
 
@@ -70,14 +68,11 @@ class Dashboard extends Component {
   };
 
   updateExperience(id, experience) {
-    let currentExp = Math.floor(this.state.experience) + Math.floor(experience)
-    this.setState(
-      { experience: currentExp },
-      () => {
-        API.updateEXP(id, currentExp)
-      }
-    );
-  };
+    let currentExp = Math.floor(this.state.experience) + Math.floor(experience);
+    this.setState({ experience: currentExp }, () => {
+      API.updateEXP(id, currentExp);
+    });
+  }
 
   // function to log user out
   onLogoutClick = (e) => {
@@ -96,7 +91,7 @@ class Dashboard extends Component {
       })
       .then(() => {
         // sets user data based on database information to allow for persistance through page reloads without logging in and out
-        // loop through quests 
+        // loop through quests
         // if overdue - harm player - > push task due date 24 hours
         // else nothing
         this.setState({
@@ -130,8 +125,8 @@ class Dashboard extends Component {
     e.preventDefault();
     const questId = e.target.parentNode.id;
     const questExp = e.target.id;
-    console.log(questId)
-    console.log(questExp)
+    console.log(questId);
+    console.log(questExp);
     console.log("Complete was clicked.", id, questId);
     this.updateExperience(id, questExp);
     API.deleteQuest(id, questId).then(() => {
@@ -165,7 +160,7 @@ class Dashboard extends Component {
           onClickDelete={(e) => this.deleteQuest(this.state.id, e)}
           onClickComplete={(e) => this.completeQuest(this.state.id, e)}
           errors={this.state.errors}
-        // submitDisabled={!this.state.todoName}
+          // submitDisabled={!this.state.todoName}
         />
 
         {/* component that reders daily tasks */}

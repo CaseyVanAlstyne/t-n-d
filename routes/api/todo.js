@@ -54,9 +54,9 @@ router.put("/deletequest/:id/:questId", (req, res) => {
 });
 
 router.put("/deletedaily/:id/:dailyId", (req, res) => {
-  console.log(req.params.id, req.params.questId);
+  console.log(req.params.id, req.params.dailyId);
   User.findByIdAndUpdate(req.params.id, {
-    $pull: { quests: { id: req.params.questId } },
+    $pull: { dailies: { id: req.params.dailyId } },
   }).then(() => {
     res.json({ ok: true });
   });

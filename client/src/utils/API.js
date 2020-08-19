@@ -9,10 +9,10 @@ export default {
     });
   },
 
-  addDaily: function (id, questListData) {
-    console.log(questListData);
+  addDaily: function (id, dailyListData) {
+    console.log(dailyListData);
     return axios.post(`/api/adddaily/${id}`, {
-      quest: questListData,
+      daily: dailyListData,
     });
   },
 

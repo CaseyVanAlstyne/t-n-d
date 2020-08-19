@@ -20,8 +20,10 @@ class Dashboard extends Component {
     experience: this.props.auth.user.experience,
     quests: this.props.auth.user.quests,
     dailies: this.props.auth.user.dailies,
+    dailyName: "",
     todoName: "",
     todoDate: "",
+    dailyErrors: "",
     errors: "",
   };
 
@@ -30,6 +32,12 @@ class Dashboard extends Component {
     const value = event.target.value;
     this.setState({ todoName: value });
   };
+
+  handleInputChangeD = (event) => {
+    const value = event.target.value;
+    this.setState({ dailyName: value });
+  };
+
   // function to handle state change for todoDate
   handleDateChange = (date) => {
     this.setState({
@@ -70,28 +78,28 @@ class Dashboard extends Component {
   submitDaily = (e) => {
     e.preventDefault();
     // let newQuestList = this.state.quests;
-    if (this.state.todoName === "") {
+    if (this.state.dailyName === "") {
       this.setState({
-        errors: "Please enter a daily!",
+       dailyErrors: "Please enter a daily!",
       });
       return;
     }
     this.setState({ errors: "" });
 
     const dailyListData = {
-      name: this.state.todoName,
+      name: this.state.dailyName,
       experience: 20,
       date: Date.now,
       id: uuidv4(),
     };
     this.setState(
       {
-        quests: [...this.state.dailies, dailyListData],
+        dailies: [...this.state.dailies, dailyListData],
         // quests: [questListData],
       },
       () => {
-        API.addTodo(this.state.id, dailyListData);
-        this.clearInput();
+        API.addDaily(this.state.id, dailyListData);
+        this.clearInputD();
       }
     );
   };
@@ -136,6 +144,11 @@ class Dashboard extends Component {
   clearInput = () => {
     this.setState({ todoName: "" });
     document.getElementById("submitForm").value = "";
+  };
+
+  clearInputD = () => {
+    this.setState({ dailyName: "" });
+    document.getElementById("submitFormD").value = "";
   };
 
   deleteQuest(id, e) {
@@ -224,11 +237,11 @@ class Dashboard extends Component {
         {/* component that reders daily tasks */}
         <Dailies
           dailies={this.state.dailies}
-          handleInputChange={this.handleInputChange}
-          submitTodo={this.submitDaily}
+          handleInputChange={this.handleInputChangeD}
+          submitDaily={this.submitDaily}
           onClickDelete={(e) => this.deleteDaily(this.state.id, e)}
           onClickComplete={(e) => this.completeDaily(this.state.id, e)}
-          errors={this.state.errors}
+          errors={this.state.dailyErrors}
         />
 
         {/* logout button */}

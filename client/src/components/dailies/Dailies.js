@@ -12,24 +12,24 @@ export default function Dailies (props) {
           <div className="dailiesList">
             <div className="dailiesListHeader">
               <h1>
-                <b>Quests</b>
+                <b>Dailies</b>
               </h1>
             </div>
             <div className="dailiesItems">
-              {props.quests ? (
+              {props.dailies ? (
                 <ul className="collection">
-                  {props.quests.map((todo) => (
+                  {props.dailies.map((daily) => (
                     <li
-                      id={todo.id}
+                      id={daily.id}
                       className="collection-item"
-                      key={todo.name}
-                      exp={todo.experience}
+                      key={daily.name}
+                      exp={daily.experience}
                     >
-                      {todo.name}
+                      {daily.name}
                       <span> || </span>
-                      {todo.experience}
+                      {daily.experience}
                       <span> Exp. </span>
-                      {/* {todo.date} */}
+                      {/* {dailies.date} */}
                       {/* LOOK AT ME! maybe add moment.js here instead of using "Date" */}
 
                       <button
@@ -41,7 +41,7 @@ export default function Dailies (props) {
                       <button
                         onClick={props.onClickComplete}
                         className="right btn-small size blue waves-effect waves-light"
-                        id={todo.experience}
+                        id={daily.experience}
                       >
                         Complete
                       </button>
@@ -57,14 +57,14 @@ export default function Dailies (props) {
                 placeholder="enter daily task"
                 onChange={props.handleInputChange}
                 type="text"
-                id="submitForm"
+                id="submitFormD"
               ></input>
               <p className="errorMessage" style={{ color: "red" }}>
                 {props.errors}
               </p>
               <button
                 type="submit"
-                onClick={props.submitTodo}
+                onClick={props.submitDaily}
                 // disabled={props.submitDisabled}
               >
                 Add Daily Task

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import Quests from "../quests/Quests";
-// import Dailies from "../dailies/Dailies";
+import Dailies from "../dailies/Dailies";
 import Statblock from "../statblock/statblock.js";
 import API from "../../utils/API.js";
 import { v4 as uuidv4 } from "uuid";
@@ -67,6 +67,35 @@ class Dashboard extends Component {
     );
   };
 
+  submitDaily = (e) => {
+    e.preventDefault();
+    // let newQuestList = this.state.quests;
+    if (this.state.todoName === "") {
+      this.setState({
+        errors: "Please enter a daily!",
+      });
+      return;
+    }
+    this.setState({ errors: "" });
+
+    const dailyListData = {
+      name: this.state.todoName,
+      experience: 20,
+      date: Date.now,
+      id: uuidv4(),
+    };
+    this.setState(
+      {
+        quests: [...this.state.dailies, dailyListData],
+        // quests: [questListData],
+      },
+      () => {
+        API.addTodo(this.state.id, dailyListData);
+        this.clearInput();
+      }
+    );
+  };
+
   updateExperience(id, experience) {
     let currentExp = Math.floor(this.state.experience) + Math.floor(experience);
     this.setState({ experience: currentExp }, () => {
@@ -121,6 +150,18 @@ class Dashboard extends Component {
     });
   }
 
+  deleteDaily(id, e) {
+    const dailyId = e.target.parentNode.id;
+    console.log("Delete was clicked.", id, dailyId);
+    API.deleteDaily(id, dailyId).then(() => {
+      var filteredDailies = this.state.dailies.filter((daily) => {
+        return daily.id !== dailyId;
+      });
+      console.log(filteredDailies);
+      this.setState({ quests: filteredDailies });
+    });
+  }
+
   completeQuest(id, e) {
     e.preventDefault();
     const questId = e.target.parentNode.id;
@@ -135,6 +176,23 @@ class Dashboard extends Component {
       });
       console.log(filteredQuests);
       this.setState({ quests: filteredQuests });
+    });
+  }
+
+  completeDaily(id, e) {
+    e.preventDefault();
+    const dailyId = e.target.parentNode.id;
+    const dailyExp = e.target.id;
+    console.log(dailyId)
+    console.log(dailyExp)
+    console.log("Complete was clicked.", id, dailyId);
+    this.updateExperience(id, dailyExp);
+    API.deleteDaily(id, dailyId).then(() => {
+      var filteredDailies = this.state.dailies.filter((daily) => {
+        return daily.id !== dailyId;
+      });
+      console.log(filteredDailies);
+      this.setState({ quests: filteredDailies });
     });
   }
 
@@ -164,11 +222,14 @@ class Dashboard extends Component {
         />
 
         {/* component that reders daily tasks */}
-        {/* <Dailies
+        <Dailies
           dailies={this.state.dailies}
           handleInputChange={this.handleInputChange}
-          submitTodo={this.submitTodo}
-        /> */}
+          submitTodo={this.submitDaily}
+          onClickDelete={(e) => this.deleteDaily(this.state.id, e)}
+          onClickComplete={(e) => this.completeDaily(this.state.id, e)}
+          errors={this.state.errors}
+        />
 
         {/* logout button */}
         <button

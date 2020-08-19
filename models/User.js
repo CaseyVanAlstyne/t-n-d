@@ -56,6 +56,17 @@ const userSchema = new Schema({
       id: {type: String, required: true}
     },
   ],
+<<<<<<< HEAD
+  dailies: [
+    {
+      name: { type: String, required: true },
+      experience: { type: Number, required: true, default: 20 },
+      date: { type: Date, default: Date.now },
+      id: {type: String, required: true}
+    },
+  ],
+=======
+>>>>>>> 143477dfb7ea79955275b66c889bdff530ac9d11
 });
 
 const User = mongoose.model("User", userSchema);

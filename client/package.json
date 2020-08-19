@@ -9,7 +9,10 @@
     "axios": "^0.19.2",
     "classnames": "^2.2.6",
     "jwt-decode": "^2.2.0",
+<<<<<<< HEAD
+=======
     "materialize-css": "^1.0.0-rc.2",
+>>>>>>> 143477dfb7ea79955275b66c889bdff530ac9d11
     "moment": "^2.27.0",
     "react": "^16.13.1",
     "react-datepicker": "^3.1.3",

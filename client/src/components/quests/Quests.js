@@ -90,7 +90,7 @@ export default function Quests(props) {
               <DatePicker
                 selected={props.selectedDate}
                 onChange={props.handleDateChange}
-                minDate={new Date()}
+                // minDate={new Date()}
                 isClearable
                 showYearDropdown
                 scrollableYearDropdown

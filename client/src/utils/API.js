@@ -31,5 +31,17 @@ export default {
 
   updateEXP: function (id, experience) {
     return axios.put(`api/updateEXP/${id}/${experience}`);
-  }
+  },
+
+  updateQuests: function(id, questlist) {
+    return axios.put(`api/updatequests/${id}`,{
+      questList: questlist,
+    })
+  },
+
+  updatePlayerHealth: function(id, playerHealth) {
+    return axios.put(`api/updateplayerhealth/${id}`,{
+      playerHealth: playerHealth,
+    })
+  },
 };

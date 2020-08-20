@@ -71,4 +71,20 @@ router.put("/updateEXP/:id/:exp", (req, res) => {
   });
 });
 
+router.put("/updatequests/:id", (req, res) => {
+  User.findByIdAndUpdate(req.params.id, {
+    $set: {quests: req.body.questList}
+  }).then(() => {
+    res.json({ ok: true });
+  });
+});
+
+router.put("/updateplayerhealth/:id", (req, res) => {
+  User.findByIdAndUpdate(req.params.id, {
+    $set: {currentHealth: req.body.playerHealth}
+  }).then(() => {
+    res.json({ ok: true });
+  });
+});
+
 module.exports = router;

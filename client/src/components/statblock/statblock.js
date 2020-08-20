@@ -20,6 +20,10 @@ export default function statblock(props) {
     width: currentLevel.percent + "%"
   }
 
+  let healthBarStyle = {
+    width: (props.currentHealth / props.totalHealth) * 100 + "%"
+  }
+
   // let testNum = levelMath(480);
   // console.log(testNum);
 
@@ -46,7 +50,7 @@ export default function statblock(props) {
             {props.currentHealth} / {props.totalHealth}
           </p>
           <div className="progress">
-            <div className="determinate blue" style={{ width: "100%" }}></div>
+            <div className="determinate red" style={healthBarStyle}></div>
           </div>
           <div className="row"></div>
           <p>Exp:{props.experience}</p>
@@ -55,6 +59,12 @@ export default function statblock(props) {
           </div>
           <div className="row">
             <p>LvL: {currentLevel.level}</p>
+          </div>
+          <div className="row">
+            <button 
+            onClick={props.healPlayer}
+            className="btn"
+            >Drink a potion</button>
           </div>
         </div>
       </div>

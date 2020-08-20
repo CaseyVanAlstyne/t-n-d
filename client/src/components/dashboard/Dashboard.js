@@ -229,6 +229,19 @@ class Dashboard extends Component {
     });
   }
 
+  healPlayer(e) {
+    e.preventDefault();
+    if(this.state.experience >= 100){
+    let newEXP = this.state.experience - 100
+    this.setState({experience: newEXP});
+    this.setState({currentHealth: this.state.totalHealth});
+    API.updateEXP(this.state.id, newEXP)
+    API.updatePlayerHealth(this.state.id, this.state.totalHealth)
+    }else{
+      alert("not enough experiance to heal!")
+    }
+  };
+
   render() {
     // const { user } = this.props.auth;
     return (
@@ -240,6 +253,7 @@ class Dashboard extends Component {
           totalHealth={this.state.totalHealth}
           name={this.state.name}
           experience={this.state.experience}
+          healPlayer={(e) => this.healPlayer(e)}
         />
         {/* component that renders active quests/todos */}
         <Quests

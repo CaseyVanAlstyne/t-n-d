@@ -38,6 +38,7 @@ export default {
       questList: questlist,
     })
   },
+
   updatePlayerHealth: function(id, playerHealth) {
     return axios.put(`api/updateplayerhealth/${id}`,{
       playerHealth: playerHealth,

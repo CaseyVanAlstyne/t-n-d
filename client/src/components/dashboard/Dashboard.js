@@ -7,6 +7,7 @@ import Dailies from "../dailies/Dailies";
 import Statblock from "../statblock/statblock.js";
 import API from "../../utils/API.js";
 import { v4 as uuidv4 } from "uuid";
+// var moment = require('moment-timezone');
 import moment from "moment";
 // import { compareSync } from "bcryptjs";
 
@@ -89,7 +90,7 @@ class Dashboard extends Component {
     const dailyListData = {
       name: this.state.dailyName,
       experience: 20,
-      date: Date.now,
+      date: moment().add(24,'h'), 
       id: uuidv4(),
     };
     this.setState(
@@ -128,9 +129,6 @@ class Dashboard extends Component {
       })
       .then(() => {
         // sets user data based on database information to allow for persistance through page reloads without logging in and out
-        // loop through quests
-        // if overdue - harm player - > push task due date 24 hours
-        // else nothing
         this.setState({
           quests: user.quests,
           currentHealth: user.currentHealth,
@@ -138,7 +136,29 @@ class Dashboard extends Component {
           dailies: user.dailies,
           experience: user.experience,
         });
-      });
+        // loop through quests
+        for(var i = 0; i < this.state.quests.length; i++){
+          let questlist = this.state.quests
+          let currentDate = moment().format('YYYY-MM-DD')
+          let questDate = moment(this.state.quests[i].date).format('YYYY-MM-DD') 
+          // console.log(questDate)
+          if(moment(questDate).isBefore(currentDate)){
+            let dateArray = questDate.toString().split("-")
+            dateArray[1] = dateArray[1] - 1
+            let datePlus = moment(dateArray).add(1,'d').format('YYYY-MM-DD')
+            questlist[i].date = moment(datePlus)
+            this.setState({quests: questlist})
+            let playerhealth = this.state.currentHealth - 1
+            this.setState({currentHealth: playerhealth})
+          }
+        }
+        // if overdue - harm player - > push task due date 24 hours
+        // else nothing
+      }).then(() => {
+        API.updateQuests(this.state.id, this.state.quests);
+        API.updatePlayerHealth(this.state.id, this.state.currentHealth);
+      }
+      );
   }
 
   clearInput = () => {
@@ -171,7 +191,7 @@ class Dashboard extends Component {
         return daily.id !== dailyId;
       });
       console.log(filteredDailies);
-      this.setState({ quests: filteredDailies });
+      this.setState({ dailies: filteredDailies });
     });
   }
 
@@ -205,7 +225,7 @@ class Dashboard extends Component {
         return daily.id !== dailyId;
       });
       console.log(filteredDailies);
-      this.setState({ quests: filteredDailies });
+      this.setState({ dailies: filteredDailies });
     });
   }
 

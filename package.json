@@ -21,6 +21,7 @@
     "react-dom": "^16.13.1",
     "react-inputs-validation": "^4.4.5",
     "react-scripts": "^3.4.3",
+    "simple-flexbox": "^2.3.2",
     "validator": "^13.1.1"
   },
   "scripts": {

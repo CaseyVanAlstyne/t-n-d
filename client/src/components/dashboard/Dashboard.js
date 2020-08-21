@@ -9,8 +9,9 @@ import API from "../../utils/API.js";
 import { v4 as uuidv4 } from "uuid";
 // var moment = require('moment-timezone');
 import moment from "moment";
+import "../../index.css";
 // import { compareSync } from "bcryptjs";
-
+import { Column, Row } from "simple-flexbox";
 // state of the application
 class Dashboard extends Component {
   state = {
@@ -81,7 +82,7 @@ class Dashboard extends Component {
     // let newQuestList = this.state.quests;
     if (this.state.dailyName === "") {
       this.setState({
-       dailyErrors: "Please enter a daily!",
+        dailyErrors: "Please enter a daily!",
       });
       return;
     }
@@ -90,7 +91,7 @@ class Dashboard extends Component {
     const dailyListData = {
       name: this.state.dailyName,
       experience: 20,
-      date: moment().add(24,'h'), 
+      date: moment().add(24, "h"),
       id: uuidv4(),
     };
     this.setState(
@@ -137,28 +138,30 @@ class Dashboard extends Component {
           experience: user.experience,
         });
         // loop through quests
-        for(var i = 0; i < this.state.quests.length; i++){
-          let questlist = this.state.quests
-          let currentDate = moment().format('YYYY-MM-DD')
-          let questDate = moment(this.state.quests[i].date).format('YYYY-MM-DD') 
+        for (var i = 0; i < this.state.quests.length; i++) {
+          let questlist = this.state.quests;
+          let currentDate = moment().format("YYYY-MM-DD");
+          let questDate = moment(this.state.quests[i].date).format(
+            "YYYY-MM-DD"
+          );
           // console.log(questDate)
-          if(moment(questDate).isBefore(currentDate)){
-            let dateArray = questDate.toString().split("-")
-            dateArray[1] = dateArray[1] - 1
-            let datePlus = moment(dateArray).add(1,'d').format('YYYY-MM-DD')
-            questlist[i].date = moment(datePlus)
-            this.setState({quests: questlist})
-            let playerhealth = this.state.currentHealth - 1
-            this.setState({currentHealth: playerhealth})
+          if (moment(questDate).isBefore(currentDate)) {
+            let dateArray = questDate.toString().split("-");
+            dateArray[1] = dateArray[1] - 1;
+            let datePlus = moment(dateArray).add(1, "d").format("YYYY-MM-DD");
+            questlist[i].date = moment(datePlus);
+            this.setState({ quests: questlist });
+            let playerhealth = this.state.currentHealth - 1;
+            this.setState({ currentHealth: playerhealth });
           }
         }
         // if overdue - harm player - > push task due date 24 hours
         // else nothing
-      }).then(() => {
+      })
+      .then(() => {
         API.updateQuests(this.state.id, this.state.quests);
         API.updatePlayerHealth(this.state.id, this.state.currentHealth);
-      }
-      );
+      });
   }
 
   clearInput = () => {
@@ -216,8 +219,8 @@ class Dashboard extends Component {
     e.preventDefault();
     const dailyId = e.target.parentNode.id;
     const dailyExp = e.target.id;
-    console.log(dailyId)
-    console.log(dailyExp)
+    console.log(dailyId);
+    console.log(dailyExp);
     console.log("Complete was clicked.", id, dailyId);
     this.updateExperience(id, dailyExp);
     API.deleteDaily(id, dailyId).then(() => {
@@ -231,16 +234,16 @@ class Dashboard extends Component {
 
   healPlayer(e) {
     e.preventDefault();
-    if(this.state.experience >= 100){
-    let newEXP = this.state.experience - 100
-    this.setState({experience: newEXP});
-    this.setState({currentHealth: this.state.totalHealth});
-    API.updateEXP(this.state.id, newEXP)
-    API.updatePlayerHealth(this.state.id, this.state.totalHealth)
-    }else{
-      alert("not enough experiance to heal!")
+    if (this.state.experience >= 100) {
+      let newEXP = this.state.experience - 100;
+      this.setState({ experience: newEXP });
+      this.setState({ currentHealth: this.state.totalHealth });
+      API.updateEXP(this.state.id, newEXP);
+      API.updatePlayerHealth(this.state.id, this.state.totalHealth);
+    } else {
+      alert("not enough experience to heal!");
     }
-  };
+  }
 
   render() {
     // const { user } = this.props.auth;
@@ -256,27 +259,36 @@ class Dashboard extends Component {
           healPlayer={(e) => this.healPlayer(e)}
         />
         {/* component that renders active quests/todos */}
-        <Quests
-          quests={this.state.quests}
-          selectedDate={this.state.todoDate}
-          handleInputChange={this.handleInputChange}
-          handleDateChange={this.handleDateChange}
-          submitTodo={this.submitTodo}
-          onClickDelete={(e) => this.deleteQuest(this.state.id, e)}
-          onClickComplete={(e) => this.completeQuest(this.state.id, e)}
-          errors={this.state.errors}
-          // submitDisabled={!this.state.todoName}
-        />
 
-        {/* component that reders daily tasks */}
-        <Dailies
-          dailies={this.state.dailies}
-          handleInputChange={this.handleInputChangeD}
-          submitDaily={this.submitDaily}
-          onClickDelete={(e) => this.deleteDaily(this.state.id, e)}
-          onClickComplete={(e) => this.completeDaily(this.state.id, e)}
-          errors={this.state.dailyErrors}
-        />
+        <section className="container">
+          <div className="row" style={{ display: "inline" }}>
+            <div className="col s12 m6">
+              <Quests
+                quests={this.state.quests}
+                selectedDate={this.state.todoDate}
+                handleInputChange={this.handleInputChange}
+                handleDateChange={this.handleDateChange}
+                submitTodo={this.submitTodo}
+                onClickDelete={(e) => this.deleteQuest(this.state.id, e)}
+                onClickComplete={(e) => this.completeQuest(this.state.id, e)}
+                errors={this.state.errors}
+                // submitDisabled={!this.state.todoName}
+              />
+
+              {/* component that renders daily tasks */}
+            </div>
+            <div className="col s12 m6">
+              <Dailies
+                dailies={this.state.dailies}
+                handleInputChange={this.handleInputChangeD}
+                submitDaily={this.submitDaily}
+                onClickDelete={(e) => this.deleteDaily(this.state.id, e)}
+                onClickComplete={(e) => this.completeDaily(this.state.id, e)}
+                errors={this.state.dailyErrors}
+              />
+            </div>
+          </div>
+        </section>
 
         {/* logout button */}
         <button
@@ -285,6 +297,7 @@ class Dashboard extends Component {
             borderRadius: "3px",
             letterSpacing: "1.5px",
             marginTop: "1rem",
+            align: "center",
           }}
           onClick={this.onLogoutClick}
           className="btn btn-large waves-effect waves-light hoverable blue accent-3"

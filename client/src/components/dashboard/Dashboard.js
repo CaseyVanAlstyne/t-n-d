@@ -199,7 +199,7 @@ class Dashboard extends Component {
   };
 
   deleteQuest(id, e) {
-    const questId = e.target.parentNode.id;
+    const questId = e.target.id;
     console.log("Delete was clicked.", id, questId);
     API.deleteQuest(id, questId).then(() => {
       var filteredQuests = this.state.quests.filter((quest) => {
@@ -211,7 +211,7 @@ class Dashboard extends Component {
   }
 
   deleteDaily(id, e) {
-    const dailyId = e.target.parentNode.id;
+    const dailyId = e.target.id;
     console.log("Delete was clicked.", id, dailyId);
     API.deleteDaily(id, dailyId).then(() => {
       var filteredDailies = this.state.dailies.filter((daily) => {
@@ -286,6 +286,7 @@ class Dashboard extends Component {
     return (
       <>
         {/* component that renders user stat information */}
+        
         <Statblock
           userid={this.state.id}
           currentHealth={this.state.currentHealth}

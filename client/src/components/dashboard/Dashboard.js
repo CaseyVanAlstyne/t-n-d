@@ -11,7 +11,7 @@ import { v4 as uuidv4 } from "uuid";
 import moment from "moment";
 import "../../index.css";
 // import { compareSync } from "bcryptjs";
-import { Column, Row } from "simple-flexbox";
+// import { Column, Row } from "simple-flexbox";
 // state of the application
 class Dashboard extends Component {
   state = {
@@ -156,17 +156,17 @@ class Dashboard extends Component {
           }
         }
         for (let i = 0; i < this.state.dailies.length; i++) {
-          let dailiesList = this.state.dailies;
-          let currentDate = moment().format("YYYY-MM-DD H"); 
+          // let dailiesList = this.state.dailies;
+          let currentDate = moment().format("YYYY-MM-DD H");
           let dailyDate = moment(this.state.dailies[i].date).format("YYYY-MM-DD H")
           // console.log(dailiesList[i])
           console.log(currentDate)
           console.log(dailyDate)
-          if(moment(dailyDate).isBefore(currentDate)){
-            console.log('overdue')
-          }else if((moment(dailyDate) - moment(currentDate)) / 3600000 <= 24){
+          if (moment(dailyDate).isBefore(currentDate)) {
+            console.log('This task is overdue!')
+          } else if ((moment(dailyDate) - moment(currentDate)) / 3600000 <= 24) {
             console.log("you have less than 24 hours left!")
-          }else{
+          } else {
             console.log("you got time fam, lets chill.")
           }
         }
@@ -244,7 +244,7 @@ class Dashboard extends Component {
         dailyList[i].completable = false
       }
     }
-    this.setState({dailies: dailyList})
+    this.setState({ dailies: dailyList })
     console.log(this.state.id)
     API.completeDaily(this.state.id, dailyList)
     // console.log(dailyList);

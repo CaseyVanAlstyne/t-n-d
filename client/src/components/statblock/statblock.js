@@ -28,25 +28,26 @@ export default function statblock(props) {
 
   return (
     <section className="container">
+        <div className="card">
+          <div className="card-content">
       <div className="row">
-        <div className="col s12 m6">
-          <h2>
-            <u>{props.name}</u>
-          </h2>
+        <div className="col s12 center-align">
+          <h1>
+            <u><b>{props.name}</b></u>
+          </h1>
         </div>
       </div>
       <div className="row">
-        <div className="col s12 m4">
+        <div className="col s12 m4 center-align">
           <img
             src="img/OIP.jpg"
             style={{ maxHeight: "200px", maxWidth: "200px" }}
             alt="user avatar"
           ></img>
-          <div className="row"></div>
+          <div className="row center-align"></div>
           <button
             onClick={props.healPlayer}
-            className="btn"
-            style={{ align: "center" }}
+            className="btn "
           >
             Drink a potion
           </button>
@@ -70,6 +71,8 @@ export default function statblock(props) {
           <div className="row"></div>
           <p>LvL: {currentLevel.level}</p>
         </div>
+        </div>
+      </div>
       </div>
     </section>
   );

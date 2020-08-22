@@ -53,7 +53,8 @@ const userSchema = new Schema({
       name: { type: String, required: true },
       experience: { type: Number, required: true, default: 20 },
       date: { type: String, required: true},
-      id: {type: String, required: true}
+      id: {type: String, required: true},
+      completable: {type: Boolean, require: true}
     },
   ],
 });

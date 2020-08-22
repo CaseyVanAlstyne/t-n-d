@@ -35,23 +35,7 @@ export default function Quests(props) {
                 <span> Exp. </span>
                 <span> || Due </span>
                 {moment(todo.date).format("MM/DD/YYYY")}
-                {/* {todo.date.toString().slice(4,10)} */}
                 {/* LOOK AT ME! maybe add moment.js here instead of using "Date" */}
-                {/* <div className="row"></div>
-                      <div className="row"> */}
-                {/* <button
-                          onClick={props.onClickComplete}
-                          class="btn-floating btn-small waves-effect waves-light green"
-                          id={todo.experience}
-                          >
-                          <i class="material-icons">check</i>
-                        </button>
-                        <button
-                          class="btn-floating btn-small waves-effect waves-light red"
-                          onClick={props.onClickDelete}>
-                          <i class="material-icons">close</i>
-                        </button> */}
-
                 <button
                   onClick={props.onClickComplete}
                   className="btn-small size blue waves-effect waves-light"

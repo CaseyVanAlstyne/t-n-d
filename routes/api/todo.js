@@ -34,6 +34,14 @@ router.post("/adddaily/:id/", (req, res) => {
   );
 });
 
+router.post("/completedaily/:id/", (req, res) => {
+  User.findByIdAndUpdate(req.params.id, {
+    $set: { dailies: req.body.dailiesList}
+  }).then(() => {
+    res.json({ ok: true });
+  });
+})
+
 router.get("/getuser/:id", (req, res) => {
   User.findById(req.params.id, (error, data) => {
     if (error) {

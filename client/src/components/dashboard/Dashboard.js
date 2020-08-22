@@ -91,8 +91,9 @@ class Dashboard extends Component {
     const dailyListData = {
       name: this.state.dailyName,
       experience: 20,
-      date: moment().add(24, "h"),
+      date: moment().add(24, "h").format('YYYY-MM-DD H'),
       id: uuidv4(),
+      completable: true,
     };
     this.setState(
       {
@@ -138,13 +139,12 @@ class Dashboard extends Component {
           experience: user.experience,
         });
         // loop through quests
-        for (var i = 0; i < this.state.quests.length; i++) {
+        for (let i = 0; i < this.state.quests.length; i++) {
           let questlist = this.state.quests;
           let currentDate = moment().format("YYYY-MM-DD");
-          let questDate = moment(this.state.quests[i].date).format(
-            "YYYY-MM-DD"
-          );
-          // console.log(questDate)
+          let questDate = moment(this.state.quests[i].date).format("YYYY-MM-DD");
+          console.log((moment(questDate) - moment(currentDate)) / 3600000)
+          // if overdue - harm player - > push task due date 24 hours
           if (moment(questDate).isBefore(currentDate)) {
             let dateArray = questDate.toString().split("-");
             dateArray[1] = dateArray[1] - 1;
@@ -155,7 +155,21 @@ class Dashboard extends Component {
             this.setState({ currentHealth: playerhealth });
           }
         }
-        // if overdue - harm player - > push task due date 24 hours
+        for (let i = 0; i < this.state.dailies.length; i++) {
+          let dailiesList = this.state.dailies;
+          let currentDate = moment().format("YYYY-MM-DD H"); 
+          let dailyDate = moment(this.state.dailies[i].date).format("YYYY-MM-DD H")
+          // console.log(dailiesList[i])
+          console.log(currentDate)
+          console.log(dailyDate)
+          if(moment(dailyDate).isBefore(currentDate)){
+            console.log('overdue')
+          }else if((moment(dailyDate) - moment(currentDate)) / 3600000 <= 24){
+            console.log("you have less than 24 hours left!")
+          }else{
+            console.log("you got time fam, lets chill.")
+          }
+        }
         // else nothing
       })
       .then(() => {
@@ -219,17 +233,29 @@ class Dashboard extends Component {
     e.preventDefault();
     const dailyId = e.target.parentNode.id;
     const dailyExp = e.target.id;
-    console.log(dailyId);
-    console.log(dailyExp);
-    console.log("Complete was clicked.", id, dailyId);
+    let dailyList = this.state.dailies
+    // console.log(dailyId);
+    // console.log(dailyExp);
+    // console.log("Complete was clicked.", id, dailyId);
     this.updateExperience(id, dailyExp);
-    API.deleteDaily(id, dailyId).then(() => {
-      var filteredDailies = this.state.dailies.filter((daily) => {
-        return daily.id !== dailyId;
-      });
-      console.log(filteredDailies);
-      this.setState({ dailies: filteredDailies });
-    });
+    for (var i = 0; i < dailyList.length; i++) {
+      if (dailyList[i].id === dailyId) {
+        dailyList[i].date = moment().add(25, "h").format('YYYY-MM-DD H')
+        dailyList[i].completable = false
+      }
+    }
+    this.setState({dailies: dailyList})
+    console.log(this.state.id)
+    API.completeDaily(this.state.id, dailyList)
+    // console.log(dailyList);
+
+    // API.deleteDaily(id, dailyId).then(() => {
+    //   var filteredDailies = this.state.dailies.filter((daily) => {
+    //     return daily.id !== dailyId;
+    //   });
+    //   console.log(filteredDailies);
+    //   this.setState({ dailies: filteredDailies });
+    // });
   }
 
   healPlayer(e) {
@@ -272,7 +298,7 @@ class Dashboard extends Component {
                 onClickDelete={(e) => this.deleteQuest(this.state.id, e)}
                 onClickComplete={(e) => this.completeQuest(this.state.id, e)}
                 errors={this.state.errors}
-                // submitDisabled={!this.state.todoName}
+              // submitDisabled={!this.state.todoName}
               />
 
               {/* component that renders daily tasks */}

@@ -3,7 +3,10 @@ import "./dailies.css";
 import moment from "moment";
 import "../../index.css";
 
+
 export default function Dailies(props) {
+  let currentDate = moment();
+  
   return (
     <div className="dailiesList">
       <div className="dailiesListHeader">
@@ -25,6 +28,8 @@ export default function Dailies(props) {
                 <span> || </span>
                 {daily.experience}
                 <span> Exp. </span>
+                <span> || Due in {Math.floor((moment(daily.date) - moment(currentDate)) / 3600000)} hours</span>
+
                 {/* {dailies.date} */}
                 {/* LOOK AT ME! maybe add moment.js here instead of using "Date" */}
 
@@ -36,7 +41,7 @@ export default function Dailies(props) {
                 </button>
                 <button
                   onClick={props.onClickComplete}
-                  className="right btn-small size blue waves-effect waves-light"
+                  className={daily.completable ? "right btn-small size blue waves-effect waves-light" : "right btn-small size blue waves-effect waves-light disabled"}
                   id={daily.experience}
                 >
                   Complete
@@ -45,8 +50,8 @@ export default function Dailies(props) {
             ))}
           </ul>
         ) : (
-          <h4>"Start your first daily task!"</h4>
-        )}
+            <h4>"Start your first daily task!"</h4>
+          )}
       </div>
       <form className="dailiesForm">
         <input
@@ -62,7 +67,7 @@ export default function Dailies(props) {
           type="submit"
           onClick={props.submitDaily}
           className="btn"
-          // disabled={props.submitDisabled}
+        // disabled={props.submitDisabled}
         >
           Add Daily Task
         </button>

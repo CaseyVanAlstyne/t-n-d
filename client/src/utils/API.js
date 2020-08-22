@@ -16,6 +16,12 @@ export default {
     });
   },
 
+  completeDaily: function (id, dailiesList) {
+    return axios.post(`/api/completedaily/${id}/`, {
+      dailiesList: dailiesList,
+    });
+  }, 
+
   // api call used in dashboard component to return full user data
   getUser: function (id) {
     return axios.get(`/api/getuser/${id}`);

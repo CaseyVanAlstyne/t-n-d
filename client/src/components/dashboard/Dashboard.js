@@ -150,24 +150,34 @@ class Dashboard extends Component {
             dateArray[1] = dateArray[1] - 1;
             let datePlus = moment(dateArray).add(1, "d").format("YYYY-MM-DD");
             questlist[i].date = moment(datePlus);
+            console.log(dateArray)
             this.setState({ quests: questlist });
             let playerhealth = this.state.currentHealth - 1;
             this.setState({ currentHealth: playerhealth });
           }
         }
         for (let i = 0; i < this.state.dailies.length; i++) {
-          // let dailiesList = this.state.dailies;
+          let dailiesList = this.state.dailies;
           let currentDate = moment().format("YYYY-MM-DD H");
           let dailyDate = moment(this.state.dailies[i].date).format("YYYY-MM-DD H")
           // console.log(dailiesList[i])
           console.log(currentDate)
           console.log(dailyDate)
           if (moment(dailyDate).isBefore(currentDate)) {
-            console.log('This task is overdue!')
+            console.log('This task is overdue!');
+            dailiesList[i].date = moment().add(24, "h").format('YYYY-MM-DD H');
+            dailiesList[i].completable = true;
+            this.setState({dailies: dailiesList})
+            let playerhealth = this.state.currentHealth - 1;
+            this.setState({ currentHealth: playerhealth });
           } else if ((moment(dailyDate) - moment(currentDate)) / 3600000 <= 24) {
             console.log("you have less than 24 hours left!")
+            dailiesList[i].completable = true
+            this.setState({dailies: dailiesList})
           } else {
-            console.log("you got time fam, lets chill.")
+            console.log("you got time fam, let's chill.")
+            dailiesList[i].completable = false
+            this.setState({dailies: dailiesList})
           }
         }
         // else nothing
@@ -298,7 +308,6 @@ class Dashboard extends Component {
                 onClickDelete={(e) => this.deleteQuest(this.state.id, e)}
                 onClickComplete={(e) => this.completeQuest(this.state.id, e)}
                 errors={this.state.errors}
-              // submitDisabled={!this.state.todoName}
               />
 
               {/* component that renders daily tasks */}

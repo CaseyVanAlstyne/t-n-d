@@ -17,11 +17,8 @@ app.use(
 app.use(bodyParser.json());
 
 // DB Config
-// const db = require("./config/keys").mongoURI;
 // Connect to MongoDB
 const uri = process.env.ATLAS_URI;
-// const uri = null;
-// console.log(uri);
 mongoose
   .connect(uri || "mongodb://localhost/todo", {
     useNewUrlParser: true,

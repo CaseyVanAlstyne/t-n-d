@@ -6,6 +6,8 @@ const app = express();
 const passport = require("passport");
 const users = require("./routes/api/users");
 const todo = require("./routes/api/todo");
+const path = require("path");
+
 // Bodyparser middleware
 app.use(
   bodyParser.urlencoded({

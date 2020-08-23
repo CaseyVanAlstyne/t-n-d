@@ -70,6 +70,10 @@ export default function statblock(props) {
           </div>
           <div className="row"></div>
           <p>LvL: {currentLevel.level}</p>
+          <div className="row"></div>
+          <p className="errorMessage" style={{ color: "red" }}>
+          {props.damageDeathMessage}
+        </p>
         </div>
         </div>
       </div>

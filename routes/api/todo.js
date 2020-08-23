@@ -87,6 +87,14 @@ router.put("/updatequests/:id", (req, res) => {
   });
 });
 
+router.put("/updatedailies/:id", (req, res) => {
+  User.findByIdAndUpdate(req.params.id, {
+    $set: {dailies: req.body.dailiesList}
+  }).then(() => {
+    res.json({ ok: true });
+  });
+});
+
 router.put("/updateplayerhealth/:id", (req, res) => {
   User.findByIdAndUpdate(req.params.id, {
     $set: {currentHealth: req.body.playerHealth}

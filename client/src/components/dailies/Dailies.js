@@ -60,7 +60,7 @@ export default function Dailies(props) {
                       // onClick={props.onClickDelete}
                       className="right btn-small size red waves-effect"
                     >
-                      <i class="material-icons"
+                      <i className="material-icons"
                         id={daily.id}
                         onClick={props.onClickDelete}
                       >clear</i>
@@ -70,7 +70,7 @@ export default function Dailies(props) {
                       className={daily.completable ? "right btn-small size blue waves-effect waves-light" : "right btn-small size blue waves-effect waves-light disabled"}
                       id={daily.id}
                     >
-                      <i class="material-icons"
+                      <i className="material-icons"
                         id={daily.experience}
                         onClick={props.onClickComplete}
                       >check</i>

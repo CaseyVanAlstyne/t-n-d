@@ -156,7 +156,7 @@ class Dashboard extends Component {
             questlist[i].date = moment(datePlus);
             currentDamage++
             this.setState({ quests: questlist });
-            let playerhealth = this.state.currentHealth - 5;
+            let playerhealth = this.state.currentHealth - 1;
             this.setState({ currentHealth: playerhealth });
             this.setState({ damageCount: currentDamage })
           }

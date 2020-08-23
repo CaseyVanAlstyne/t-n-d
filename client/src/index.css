@@ -1,3 +1,12 @@
+@font-face {
+  src: url(fonts/OptimusPrinceps.ttf);
+  font-family: ds;
+}
+
+.newfont {
+  font-family: ds;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",

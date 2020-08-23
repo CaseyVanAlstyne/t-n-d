@@ -10,6 +10,7 @@ import { v4 as uuidv4 } from "uuid";
 // var moment = require('moment-timezone');
 import moment from "moment";
 import "../../index.css";
+import M from "materialize-css";
 // import { compareSync } from "bcryptjs";
 // import { Column, Row } from "simple-flexbox";
 // state of the application
@@ -155,9 +156,9 @@ class Dashboard extends Component {
             questlist[i].date = moment(datePlus);
             currentDamage++
             this.setState({ quests: questlist });
-            let playerhealth = this.state.currentHealth - 1;
+            let playerhealth = this.state.currentHealth - 5;
             this.setState({ currentHealth: playerhealth });
-            this.setState({damageCount: currentDamage})
+            this.setState({ damageCount: currentDamage })
           }
         }
         for (let i = 0; i < this.state.dailies.length; i++) {
@@ -172,7 +173,7 @@ class Dashboard extends Component {
             currentDamage++
             let playerhealth = this.state.currentHealth - 1;
             this.setState({ currentHealth: playerhealth });
-            this.setState({damageCount: currentDamage})
+            this.setState({ damageCount: currentDamage })
           } else if ((moment(dailyDate) - moment(currentDate)) / 3600000 <= 24) {
             dailiesList[i].completable = true
             this.setState({ dailies: dailiesList })
@@ -184,17 +185,20 @@ class Dashboard extends Component {
 
         if (this.state.currentHealth <= 0) {
           // set player health back to full
+          let audio = new Audio("audio/sound.mp3")
           this.setState({ currentHealth: this.state.totalHealth })
           // set player EXP to 0
           this.setState({ experience: 0 })
           // display that user died
           console.log("the player has died")
-          this.setState({damageDeathMessage: `YOU HAVE DIED`})
+          let instance = M.Modal.getInstance(document.getElementById('modal1'))
+          instance.open();
+          audio.play()
         } else {
           if (this.state.damageCount > 0) {
             // user to x amout of damage
             console.log(`You took ${this.state.damageCount} damage!`)
-            this.setState({damageDeathMessage: `You have taken ${this.state.damageCount} damage.`})
+            this.setState({ damageDeathMessage: `You have taken ${this.state.damageCount} damage.` })
           };
         };
       })
@@ -299,12 +303,26 @@ class Dashboard extends Component {
     }
   }
 
+  youDied() {
+    let instance = M.Modal.getInstance(document.getElementById('modal1'))
+    instance.open();
+  }
+
   render() {
     // const { user } = this.props.auth;
+    // this.youDied()
     return (
       <>
-        {/* component that renders user stat information */}
 
+        <div id="modal1" className="modal">
+          <div className="modal-content center-align black">
+            <h1 className="newfont red-text text-darken-1" style={{ fontSize: 100 }}>You Died</h1>
+          </div>
+          <div className="modal-footer black">
+            <a href="#!" className="modal-close waves-effect waves-red btn-flat">close</a>
+          </div>
+        </div>
+        {/* component that renders user stat information */}
         <Statblock
           userid={this.state.id}
           currentHealth={this.state.currentHealth}

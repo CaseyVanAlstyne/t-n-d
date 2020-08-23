@@ -36,7 +36,7 @@ export default function Quests(props) {
             // className="teal lighten-2"
             selected={props.selectedDate}
             onChange={props.handleDateChange}
-            minDate={new Date()}
+            // minDate={new Date()}
             isClearable
             showYearDropdown
             scrollableYearDropdown
@@ -75,7 +75,7 @@ export default function Quests(props) {
                   // onClick={props.onClickDelete}
                   className="btn-small right size red waves-effect"
                 >
-                  <i class="material-icons"
+                  <i className="material-icons"
                   id={todo.id}
                   onClick={props.onClickDelete}
                   >clear</i>
@@ -85,7 +85,7 @@ export default function Quests(props) {
                   className="btn-small right size blue waves-effect waves-light"
                   id={todo.id}
                 >
-                  <i class="material-icons"
+                  <i className="material-icons"
                   id={todo.experience}
                   onClick={props.onClickComplete}
                   >check</i>

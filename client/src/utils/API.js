@@ -44,6 +44,11 @@ export default {
       questList: questlist,
     })
   },
+  updateDailies: function(id, dailieslist) {
+    return axios.put(`api/updatedailies/${id}`,{
+      dailiesList: dailieslist,
+    })
+  },
 
   updatePlayerHealth: function(id, playerHealth) {
     return axios.put(`api/updateplayerhealth/${id}`,{

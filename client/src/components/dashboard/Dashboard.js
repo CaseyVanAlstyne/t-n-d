@@ -27,6 +27,8 @@ class Dashboard extends Component {
     todoDate: "",
     dailyErrors: "",
     errors: "",
+    damageDeathMessage: "",
+    damageCount: 0,
   };
 
   // function to handle changes in the quests panel
@@ -143,6 +145,7 @@ class Dashboard extends Component {
           let questlist = this.state.quests;
           let currentDate = moment().format("YYYY-MM-DD");
           let questDate = moment(this.state.quests[i].date).format("YYYY-MM-DD");
+          let currentDamage = this.state.damageCount
           console.log((moment(questDate) - moment(currentDate)) / 3600000)
           // if overdue - harm player - > push task due date 24 hours
           if (moment(questDate).isBefore(currentDate)) {
@@ -150,41 +153,56 @@ class Dashboard extends Component {
             dateArray[1] = dateArray[1] - 1;
             let datePlus = moment(dateArray).add(1, "d").format("YYYY-MM-DD");
             questlist[i].date = moment(datePlus);
-            console.log(dateArray)
+            currentDamage++
             this.setState({ quests: questlist });
             let playerhealth = this.state.currentHealth - 1;
             this.setState({ currentHealth: playerhealth });
+            this.setState({damageCount: currentDamage})
           }
         }
         for (let i = 0; i < this.state.dailies.length; i++) {
           let dailiesList = this.state.dailies;
           let currentDate = moment().format("YYYY-MM-DD H");
           let dailyDate = moment(this.state.dailies[i].date).format("YYYY-MM-DD H")
-          // console.log(dailiesList[i])
-          console.log(currentDate)
-          console.log(dailyDate)
+          let currentDamage = this.state.damageCount
           if (moment(dailyDate).isBefore(currentDate)) {
-            console.log('This task is overdue!');
             dailiesList[i].date = moment().add(24, "h").format('YYYY-MM-DD H');
             dailiesList[i].completable = true;
-            this.setState({dailies: dailiesList})
+            this.setState({ dailies: dailiesList })
+            currentDamage++
             let playerhealth = this.state.currentHealth - 1;
             this.setState({ currentHealth: playerhealth });
+            this.setState({damageCount: currentDamage})
           } else if ((moment(dailyDate) - moment(currentDate)) / 3600000 <= 24) {
-            console.log("you have less than 24 hours left!")
             dailiesList[i].completable = true
-            this.setState({dailies: dailiesList})
+            this.setState({ dailies: dailiesList })
           } else {
-            console.log("you got time fam, let's chill.")
             dailiesList[i].completable = false
-            this.setState({dailies: dailiesList})
+            this.setState({ dailies: dailiesList })
           }
         }
-        // else nothing
+
+        if (this.state.currentHealth <= 0) {
+          // set player health back to full
+          this.setState({ currentHealth: this.state.totalHealth })
+          // set player EXP to 0
+          this.setState({ experience: 0 })
+          // display that user died
+          console.log("the player has died")
+          this.setState({damageDeathMessage: `YOU HAVE DIED`})
+        } else {
+          if (this.state.damageCount > 0) {
+            // user to x amout of damage
+            console.log(`You took ${this.state.damageCount} damage!`)
+            this.setState({damageDeathMessage: `You have taken ${this.state.damageCount} damage.`})
+          };
+        };
       })
       .then(() => {
+        API.updateDailies(this.state.id, this.state.dailies);
         API.updateQuests(this.state.id, this.state.quests);
         API.updatePlayerHealth(this.state.id, this.state.currentHealth);
+        API.updateEXP(this.state.id, this.state.experience);
       });
   }
 
@@ -286,7 +304,7 @@ class Dashboard extends Component {
     return (
       <>
         {/* component that renders user stat information */}
-        
+
         <Statblock
           userid={this.state.id}
           currentHealth={this.state.currentHealth}
@@ -294,6 +312,7 @@ class Dashboard extends Component {
           name={this.state.name}
           experience={this.state.experience}
           healPlayer={(e) => this.healPlayer(e)}
+          damageDeathMessage={this.state.damageDeathMessage}
         />
         {/* component that renders active quests/todos */}
 

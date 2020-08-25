@@ -35,7 +35,7 @@ export default function Quests(props) {
                 placeholderText="Set Due Date"
                 selected={props.selectedDate}
                 onChange={props.handleDateChange}
-                // minDate={new Date()}
+                minDate={new Date()}
                 isClearable
                 showYearDropdown
                 scrollableYearDropdown

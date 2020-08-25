@@ -17,12 +17,12 @@ import M from "materialize-css";
 class Dashboard extends Component {
   state = {
     id: this.props.auth.user.id,
-    currentHealth: this.props.auth.user.currentHealth,
+    currentHealth: 0,
     totalHealth: this.props.auth.user.totalHealth,
     name: this.props.auth.user.name,
-    experience: this.props.auth.user.experience,
-    quests: this.props.auth.user.quests,
-    dailies: this.props.auth.user.dailies,
+    experience: 0,
+    quests: [],
+    dailies: [],
     dailyName: "",
     todoName: "",
     todoDate: "",

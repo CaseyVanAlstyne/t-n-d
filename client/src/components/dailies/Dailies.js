@@ -39,45 +39,44 @@ export default function Dailies(props) {
           </form>
           <div className="dailiesItems">
             {props.dailies ? (
-              <ul className="collection">
-                {props.dailies.map((daily) => (
-                  <li
-                    id={daily.id}
-                    className="collection-item"
-                    key={daily.name}
-                    exp={daily.experience}
-                  >
-                    {daily.name}
-                    <span> || </span>
-                    {daily.experience}
-                    <span> Exp. </span>
-                    <span> || Due in {Math.floor((moment(daily.date) - moment(currentDate)) / 3600000)} hours</span>
-
-                    {/* {dailies.date} */}
-                    {/* LOOK AT ME! maybe add moment.js here instead of using "Date" */}
-
-                    <button
-                      // onClick={props.onClickDelete}
-                      className="right btn-small size red waves-effect"
-                    >
-                      <i className="material-icons"
-                        id={daily.id}
-                        onClick={props.onClickDelete}
-                      >clear</i>
-                    </button>
-                    <button
-                      // onClick={props.onClickComplete}
-                      className={daily.completable ? "right btn-small size blue waves-effect waves-light" : "right btn-small size blue waves-effect waves-light disabled"}
-                      id={daily.id}
-                    >
-                      <i className="material-icons"
-                        id={daily.experience}
-                        onClick={props.onClickComplete}
-                      >check</i>
-                    </button>
-                  </li>
-                ))}
-              </ul>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Daily</th>
+                    <th>Due in</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {props.dailies.map((daily) => (
+                    <tr>
+                      <td key={daily.name}>{daily.name}</td>
+                      <td>{Math.floor((moment(daily.date) - moment(currentDate)) / 3600000)} hours</td>
+                      <td>
+                        <button
+                          // onClick={props.onClickDelete}
+                          className="right btn-small size red waves-effect"
+                        >
+                          <i className="material-icons"
+                            id={daily.id}
+                            onClick={props.onClickDelete}
+                          >clear</i>
+                        </button>
+                        <button
+                          // onClick={props.onClickComplete}
+                          className={daily.completable ? "right btn-small size blue waves-effect waves-light" : "right btn-small size blue waves-effect waves-light disabled"}
+                          id={daily.id}
+                        >
+                          <i className="material-icons"
+                            id={daily.experience}
+                            onClick={props.onClickComplete}
+                          >check</i>
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             ) : (
                 <h4>"Start your first daily task!"</h4>
               )}

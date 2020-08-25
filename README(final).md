@@ -83,5 +83,5 @@ npm test
 
 ## Questions
 
-If you have any questions about the repo, contact Julia Hopkins, Casey VanAlstyne, William VanHook, or Sean Walmer directly at jhopkins18@gmail.com, caseywvanalstyne@gmail.com, wmvanhook.gmail.com or sean.walmer@outlook.com.
+If you have any questions about the repo, contact Julia Hopkins, Casey VanAlstyne, William VanHook, or Sean Walmer directly at jhopkins18@gmail.com, caseywvanalstyne@gmail.com, wmvanhook@gmail.com or sean.walmer@outlook.com.
 

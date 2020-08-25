@@ -6,7 +6,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Description
   
-This is gameified version of a classic to-do application.
+This is gameified version of a classic to-do application, which rewards users based on getting stuff done.
 
 ## Table of Contents
 
